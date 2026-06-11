@@ -34,3 +34,7 @@ WORKDIR /var/www
 
 # fix permission
 RUN chown -R www-data:www-data /var/www
+
+EXPOSE 9000
+
+CMD ["php-fpm"]
