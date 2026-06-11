@@ -67,7 +67,7 @@ function AddHotelForm() {
                         src={
                             hotel && hotel.image
                                 ? `${process.env.REACT_APP_BASE_URL}/img/hotels/${hotel.image}`
-                                : "http://placehold.it/300x300?text=hotel image"
+                                : ""
                         }
                         alt="hotel"
                         className="w-32 h-32 rounded-sm object-cover"

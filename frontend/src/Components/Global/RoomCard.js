@@ -19,7 +19,7 @@ function RoomCard({ room }) {
                         src={
                             room && room.image && typeof image === "string"
                                 ? `${process.env.REACT_APP_BASE_URL}/img/rooms/${image}`
-                                : "http://placehold.it/300x300?text=room image"
+                                : ""
                         }
                         className="w-full h-64 object-cover"
                         alt="room"

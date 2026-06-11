@@ -50,7 +50,7 @@ function HotelItem({ hotel }) {
                         src={
                             hotel.image
                                 ? `${process.env.REACT_APP_BASE_URL}/img/hotels/${hotel.image}`
-                                : "http://placehold.it/300x300?text=hotel"
+                                : ""
                         }
                         className="w-full h-40 object-cover"
                         alt="hotel"

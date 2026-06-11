@@ -22,7 +22,7 @@ function HotelItem({
                 src={
                     image
                         ? `${process.env.REACT_APP_BASE_URL}/img/hotels/${image}`
-                        : "http://placehold.it/300x300?text=image not available"
+                        : ""
                 }
                 alt="bag"
             />

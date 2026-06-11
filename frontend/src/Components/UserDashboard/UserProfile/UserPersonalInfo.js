@@ -59,7 +59,7 @@ function UserPersonalInfo({ user, id }) {
                         src={
                             user && user.image
                                 ? `${process.env.REACT_APP_BASE_URL}/img/users/${user.image}`
-                                : "http://placehold.it/300x300?text=avatar"
+                                : ""
                         }
                         alt="avatar"
                         className="w-32 h-32 rounded-full object-cover"

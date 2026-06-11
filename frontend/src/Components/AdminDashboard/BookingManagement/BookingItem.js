@@ -24,7 +24,7 @@ export default class BookingItem extends Component {
                     src={
                         image
                             ? `${process.env.REACT_APP_BASE_URL}/img/hotels/${image}`
-                            : "http://placehold.it/300x300?text=no image available"
+                            : ""
                     }
                     alt="hotel"
                     className="w-full h-56 object-cover rounded-sm  shadow-xl "

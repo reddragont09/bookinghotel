@@ -97,7 +97,7 @@ function AddRoomForm() {
                         src={
                             room && room.image
                                 ? `${process.env.REACT_APP_BASE_URL}/img/rooms/${room.image}`
-                                : "http://placehold.it/300x300?text=room image"
+                                : ""
                         }
                         alt="room"
                         className="w-32 h-32 rounded-sm object-cover"

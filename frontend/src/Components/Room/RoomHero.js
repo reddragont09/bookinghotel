@@ -29,7 +29,7 @@ function RoomHero({ room }) {
                         src={
                             _image
                                 ? `${process.env.REACT_APP_BASE_URL}/img/rooms/${_image}`
-                                : "http://placehold.it/300x300?text=image not available"
+                                : ""
                         }
                         alt="room"
                         className="h-full w-full object-cover"

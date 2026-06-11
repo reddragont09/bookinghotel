@@ -46,7 +46,7 @@ function BookingDetails({ booking, setBooking }) {
                             src={
                                 room_image
                                     ? `${process.env.REACT_APP_BASE_URL}/img/rooms/${room_image}`
-                                    : "http://placehold.it/300x300?text=image not available"
+                                    : ""
                             }
                             alt="room image"
                             className="h-full w-full object-cover"

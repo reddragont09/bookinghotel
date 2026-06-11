@@ -14,7 +14,7 @@ function HotelCard({ hotel: { id, name, min_price, star, image } }) {
                             src={
                                 image
                                     ? `${process.env.REACT_APP_BASE_URL}/img/hotels/${image}`
-                                    : "http://placehold.it/300x300?text=hotel"
+                                    : ""
                             }
                             className="w-full h-64 object-cover"
                             alt="hotel"
