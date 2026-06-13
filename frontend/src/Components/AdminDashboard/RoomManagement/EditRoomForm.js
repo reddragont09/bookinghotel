@@ -40,7 +40,7 @@ function EditRoomForm() {
         try {
             let images = state.rooms.room && state.rooms.room.image.split(",");
             state.rooms.room && setImage(images[0]);
-        } catch (error) {}
+        } catch (error) { }
     }, [state.rooms.room]); // eslint-disable-line
 
     useEffect(() => {
@@ -57,7 +57,16 @@ function EditRoomForm() {
         let _features;
         console.log("-----------------------------");
         console.log(features);
-        _features = JSON.parse(features);
+        //_features = JSON.parse(features);
+        if (Array.isArray(features)) {
+            _features = features;
+        } else if (typeof features === "string") {
+            try {
+                _features = JSON.parse(features);
+            } catch (e) {
+                console.error("Invalid JSON:", features);
+            }
+        }
         _features = _features && _features.map((feature) => feature.value);
         const formData = new FormData();
         formData.append("_method", "PUT");
@@ -124,8 +133,8 @@ function EditRoomForm() {
                         <span>
                             {image && typeof image === "object"
                                 ? Object.keys(image).map(function (key, index) {
-                                      return image[key].name + ", ";
-                                  })
+                                    return image[key].name + ", ";
+                                })
                                 : "Upload"}
                         </span>
                     </label>
