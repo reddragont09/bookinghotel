@@ -79,10 +79,8 @@ export const updateRoom = (dispatch, formData, token) => {
             setLoading(dispatch, false);
         })
         .catch((error) => {
+            console.log("ERROR:", error);
             setLoading(dispatch, false);
-            if (error.response.status === 401) {
-                window.location.replace("/401");
-            }
         });
 };
 
