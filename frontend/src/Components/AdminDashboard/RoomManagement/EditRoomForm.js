@@ -55,6 +55,8 @@ function EditRoomForm() {
         e.preventDefault();
 
         let _features;
+        console.log("-----------------------------");
+        console.log(features);
         _features = JSON.parse(features);
         _features = _features && _features.map((feature) => feature.value);
         const formData = new FormData();
