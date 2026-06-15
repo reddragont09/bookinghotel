@@ -76,9 +76,9 @@ function HotelItem({ hotel }) {
                             <span>{hotel.name}</span>
                         </Link>
                         <span className="font-normal text-base flex flex-col md:justify-center md:items-center">
-                            <span className="">Starting From</span>
+                            <span className="">Price</span>
                             <span className="font-semibold text-2xl">
-                                {hotel.min_price}DH
+                                {hotel.min_price}$
                             </span>
                         </span>
                     </div>

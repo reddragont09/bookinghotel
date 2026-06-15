@@ -35,7 +35,7 @@ function Header({ hotelId }) {
                     className="z-50 text-2xl sm:text-2xl text-yellow-600 "
                 >
                     <img
-                        src="/assets/img/logo.png"
+                        src="/assets/img/CGP-Group-logo.png"
                         className="w-16 inline-block "
                         alt="logo"
                     />

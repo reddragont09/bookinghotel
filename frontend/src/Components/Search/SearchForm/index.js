@@ -27,6 +27,10 @@ function SearchForm({ criteria, setCriteria, executeScroll }) {
     return (
         <aside className="lg:w-3/12 bg-gray-300 p-5 rounded-sm ">
             <form action="" onSubmit={onSubmitHandler}>
+                <SearchFormButton
+                    criteria={criteria}
+                    setCriteria={setCriteria}
+                />
                 {state.bookings.loading && <Loading />}
 
                 <SearchFormMain

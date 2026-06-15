@@ -24,7 +24,7 @@ function RoomHero({ room }) {
     return (
         <section>
             <div className="grid grid-cols-1 md:grid-cols-2">
-                <div>
+                <div style={{ maxHeight: 460 }}>
                     <img
                         src={
                             _image
@@ -32,14 +32,14 @@ function RoomHero({ room }) {
                                 : ""
                         }
                         alt="room"
-                        className="h-full w-full object-cover"
+                        className="w-full h-64 md:h-full object-cover"
                     />
                 </div>
-                <div className="px-5 mt-5 md:pl-10 md:px-5 md:py-10">
+                <div className="px-4 py-6 md:pl-10 md:px-5 md:py-10">
                     <h1 className="text-2xl text-orange-800  font-semibold">
                         {room && room.name}
                     </h1>
-                    <p className="mt-5 w-10/12">{room && room.description}</p>
+                    <p className="mt-5 w-full md:w-10/12 text-sm md:text-base">{room && room.description}</p>
 
                     {room && room.features.length > 0 && (
                         <>
@@ -47,7 +47,7 @@ function RoomHero({ room }) {
                                 Features
                             </h2>
 
-                            <div className="flex">
+                            <div className="flex flex-col sm:flex-row">
                                 <ul className="mt-5 ">
                                     {room.features.slice(0, 5).map((f, i) => {
                                         return (
@@ -58,7 +58,7 @@ function RoomHero({ room }) {
                                         );
                                     })}
                                 </ul>
-                                <ul className="mt-5 ml-5">
+                                <ul className="mt-2 sm:mt-5 sm:ml-5">
                                     {room.features.slice(5, 10).map((f, i) => {
                                         return (
                                             <li className="mt-2" key={i}>
@@ -73,7 +73,7 @@ function RoomHero({ room }) {
                     )}
                     <Link
                         to="/book"
-                        className="bg-orange-600 mt-10 py-2 px-6 text-3xl text-gray-200 block text-center w-10/12 mx-auto hover:bg-orange-900 rounded-sm"
+                        className="bg-orange-600 mt-8 py-3 px-6 text-lg md:text-3xl text-gray-200 block text-center w-full md:w-10/12 mx-auto hover:bg-orange-900 rounded-sm"
                     >
                         BOOK
                     </Link>
