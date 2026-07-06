@@ -181,7 +181,7 @@ class UserController extends Controller
             }
         } catch (\Throwable $th) {
             $data['success'] =  false;
-            $data['errors'] =  collect(['Unauthorised']);
+            $data['errors'] =  $th->getMessage();
         }
 
         return response()->json(['data' => $data]);
