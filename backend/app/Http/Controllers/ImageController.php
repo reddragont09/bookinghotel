@@ -33,7 +33,7 @@ class ImageController extends Controller
                     $request->file('image')->move(public_path("/img/hotels"), $fileName);
                 }
                 $data['success'] = true;
-                $data['file'] = "/img/hotels" . $fileName;
+                $data['file'] = "/img/hotels/" . $fileName;
 
                 return response()->json(['data' => $data]);
         } catch (\Throwable $th) {
