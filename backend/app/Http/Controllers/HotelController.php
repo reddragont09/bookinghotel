@@ -148,10 +148,13 @@ class HotelController extends Controller
 
                 if ($request->hasFile('description')) {
                     $fileNameDescription = null;
+                    $data['hotel_debug'] = "có des ";
                     if ($request->file('description')) {
                         $fileNameDescription = "hotel_" . time() . "." . $request->file('description')->getClientOriginalExtension();
                         $request->file('description')->move(public_path("/img/hotels"), $fileNameDescription);
                         $hotel->description = $fileNameDescription;
+                        $data['hotel_debug'] .= $fileNameDescription;
+                        $data['hotel_description'] = $hotel->description;
                     }
                 }
 
