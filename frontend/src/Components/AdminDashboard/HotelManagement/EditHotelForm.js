@@ -18,9 +18,11 @@ function EditHotelForm() {
         city: "",
         star: "",
         x_coordinate: "",
-        y_coordinate: ""
+        y_coordinate: "",
+        description: ""
     });
     const [image, setImage] = useState(null);
+    const [catalog, setCatalog] = useState(null);
 
     useEffect(() => {
         getHotel(dispatch, id);
@@ -44,6 +46,7 @@ function EditHotelForm() {
         formData.append("x_coordinate", hotel.x_coordinate);
         formData.append("y_coordinate", hotel.y_coordinate);
         image && formData.append("image", image);
+        catalog && formData.append("description", catalog);
 
         updateHotel(dispatch, formData, state.auth.token);
     };
@@ -111,6 +114,32 @@ function EditHotelForm() {
                         setHotel({ ...hotel, name: e.target.value })
                     }
                 />
+
+                <label htmlFor="star" className="block mt-5">
+                    Hotel Catalog:{" "}
+                </label>
+                <input
+                    type="text"
+                    name="address"
+                    className="p-2 w-full xl:w-1/2 border border-gray-400 focus:outline-none focus:border-black"
+                    value={hotel.description}
+                    onChange={(e) =>
+                        setHotel({ ...hotel, description: e.target.value })
+                    }
+                />
+
+                <label className="ml-5 px-5 py-2 text-gray-200 bg-orange-500 hover:bg-orange-900 rounded-sm cursor-pointer">
+                    <input
+                        type="file"
+                        id="test"
+                        className="hidden"
+                        onChange={(e) => {
+                            setCatalog(e.target.files[0]);
+                        }}
+                    />
+                    <i className="fas fa-camera mr-2"></i>
+                    <span>{catalog ? catalog.name : "Upload"}</span>
+                </label>
 
                 <label htmlFor="star" className="block mt-5">
                     Star:{" "}

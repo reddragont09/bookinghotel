@@ -7,6 +7,7 @@ import Loading from "../Global/Loading";
 
 import HotelHero from "./HotelHero";
 import HotelRooms from "./HotelRooms";
+import HotelDescription from "./HotelDescription";
 import GuestReviewsList from "./GuestReviewsList";
 import ReviewForm from "./ReviewForm";
 import HotelGoogleMap from "./HotelGoogleMap";
@@ -24,6 +25,8 @@ function Hotel(props) {
     let { id } = useParams();
     const [_user_id] = useSecureLs("user_id");
     const [userId, setUserId] = useState(_user_id);
+
+    const [activeTab, setActiveTab] = useState("intro");
 
     useEffect(() => {
         getHotel(dispatch, id);
@@ -57,20 +60,59 @@ function Hotel(props) {
 
             <HotelHero hotel={state.hotels.hotel} />
 
-            {state.hotels.hotel && (
-                <TitleSection title={`${state.hotels.hotel.name}'s Rooms`} />
+            <div className="sticky top-0 bg-white shadow-md z-20 py-3">
+                <div className="container mx-auto flex gap-3 px-4">
+                    <button
+                        className={`px-6 py-3 rounded-lg font-medium transition-all duration-200
+                ${activeTab === "intro"
+                                ? "bg-blue-500 text-white shadow-md"
+                                : "bg-blue-100 text-blue-700 hover:bg-blue-200"
+                            }`}
+                        onClick={() => setActiveTab("intro")}
+                    >
+                        Hotel Intro
+                    </button>
+
+                    <button
+                        className={`px-6 py-3 rounded-lg font-medium transition-all duration-200
+                ${activeTab === "rooms"
+                                ? "bg-blue-500 text-white shadow-md"
+                                : "bg-blue-100 text-blue-700 hover:bg-blue-200"
+                            }`}
+                        onClick={() => setActiveTab("rooms")}
+                    >
+                        Hotel Rooms
+                    </button>
+                </div>
+            </div>
+
+            {activeTab === "intro" && (
+                <>
+                    <TitleSection title={`${state.hotels.hotel.name}`} />
+
+                    <HotelDescription hotel={state.hotels.hotel} />
+                </>
             )}
 
-            <HotelRooms hotel={state.hotels.hotel} />
+            {activeTab === "rooms" && (
+                <>
+                    {state.hotels.hotel && (
+                        <TitleSection
+                            title={`${state.hotels.hotel.name}'s Rooms`}
+                        />
+                    )}
+
+                    <HotelRooms hotel={state.hotels.hotel} />
+                </>
+            )}
 
             {state && state.reviews.reviews.length > 0 && (
                 <>
                     <Border />
 
                     <TitleSection
-                        title={`What guests say about ${
-                            state.hotels.hotel && state.hotels.hotel.name
-                        } Hotel`}
+                        title={`What guests say about ${state.hotels.hotel && state.hotels.hotel.name
+                            } Hotel`}
                     />
                     <GuestReviewsList reviews={state.reviews.reviews} />
                 </>

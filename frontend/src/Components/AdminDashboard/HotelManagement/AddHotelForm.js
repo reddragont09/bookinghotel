@@ -6,6 +6,7 @@ import { setSuccess } from "../../../redux/actions/global";
 import ErrorMessage from "../../Global/ErrorMessage";
 import SuccessMessage from "../../Global/SuccessMessage";
 import Loading from "../../Global/Loading";
+
 function AddHotelForm() {
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
@@ -19,6 +20,7 @@ function AddHotelForm() {
         y_coordinate: ""
     });
     const [image, setImage] = useState(null);
+    const [catalog, setCatalog] = useState(null);
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
@@ -30,6 +32,7 @@ function AddHotelForm() {
         formData.append("x_coordinate", hotel.x_coordinate);
         formData.append("y_coordinate", hotel.y_coordinate);
         image && formData.append("image", image);
+        catalog && formData.append("description", catalog);
 
         addHotel(dispatch, formData, state.auth.token);
     };
@@ -99,6 +102,33 @@ function AddHotelForm() {
                         setHotel({ ...hotel, name: e.target.value })
                     }
                 />
+
+                <label htmlFor="star" className="block mt-5">
+                    Hotel Catalog:{" "}
+                </label>
+                <input
+                    type="text"
+                    name="address"
+                    className="p-2 w-full xl:w-1/2 border border-gray-400 focus:outline-none focus:border-black"
+                    value={hotel.description}
+                    onChange={(e) =>
+                        setHotel({ ...hotel, description: e.target.value })
+                    }
+                />
+
+                <label className="ml-5 px-5 py-2 text-gray-200 bg-orange-500 hover:bg-orange-900 rounded-sm cursor-pointer">
+                    <input
+                        type="file"
+                        id="test"
+                        className="hidden"
+                        onChange={(e) => {
+                            setCatalog(e.target.files[0]);
+                        }}
+                    />
+                    <i className="fas fa-camera mr-2"></i>
+                    <span>{catalog ? catalog.name : "Upload"}</span>
+                    <span>{catalog ? catalog.name : "Upload"}</span>
+                </label>
 
                 <label htmlFor="star" className="block mt-5">
                     Star:{" "}
