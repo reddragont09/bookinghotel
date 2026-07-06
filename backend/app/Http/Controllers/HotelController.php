@@ -162,7 +162,6 @@ class HotelController extends Controller
                 $hotel->x_coordinate = $request->x_coordinate;
                 $hotel->y_coordinate = $request->y_coordinate;
 
-
                 if ($hotel->save()) {
                     $data['success'] = true;
                     $data['hotel'] = $hotel;

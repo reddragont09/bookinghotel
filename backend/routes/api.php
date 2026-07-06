@@ -92,3 +92,15 @@ Route::delete('features/{feature}', 'FeatureController@destroy');
 Route::get('reviews/hotel/{hotel}/', 'ReviewController@getHotelReviews');
 //if logged
 Route::get('reviews/hotel/{hotel}/{user}', 'ReviewController@getHotelReviews');
+
+Route::get('/hotel-pdf/{file}', function ($file) {
+
+    $path = public_path("img/hotels/$file");
+
+    abort_unless(file_exists($path), 404);
+
+    return response()->file($path, [
+        'Access-Control-Allow-Origin' => '*',
+        'Content-Type' => 'application/pdf',
+    ]);
+});
