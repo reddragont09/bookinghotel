@@ -57,9 +57,11 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::put('users/{user}/update-email', 'UserController@updateEmail');
     Route::put('users/{user}/update-password', 'UserController@updatePassword');
     Route::delete('users/{user}', 'UserController@destroy');
+
+
 });
 
-
+Route::post('image/hotel', 'ImageController@hotel');
 //Hotel routes
 Route::get('hotels', 'HotelController@index');
 Route::post('hotels/search', 'HotelController@search');
