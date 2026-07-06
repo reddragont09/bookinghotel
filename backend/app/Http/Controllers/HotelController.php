@@ -75,6 +75,13 @@ class HotelController extends Controller
                     $request->file('image')->move(public_path("/img/hotels"), $fileName);
                 }
 
+                $fileNameDescription = null;
+                if ($request->file('description')) {
+                    $fileNameDescription = "hotel_" . time() . "." . $request->file('description')->getClientOriginalExtension();
+                    $request->file('description')->move(public_path("/img/hotels"), $fileNameDescription);
+                }
+
+
                 $hotel = new Hotel;
                 $hotel->name = $request->name;
                 $hotel->address = $request->address;
@@ -83,7 +90,7 @@ class HotelController extends Controller
                 $hotel->x_coordinate = $request->x_coordinate;
                 $hotel->y_coordinate = $request->y_coordinate;
                 $hotel->image = $fileName;
-                $hotel->description = $request->description;;
+                $hotel->description = $fileNameDescription;
 
                 if ($hotel->save()) {
                     $data['success'] = true;
@@ -139,13 +146,22 @@ class HotelController extends Controller
                     }
                 }
 
+                if ($request->hasFile('description')) {
+                    $fileNameDescription = null;
+                    if ($request->file('description')) {
+                        $fileNameDescription = "hotel_" . time() . "." . $request->file('description')->getClientOriginalExtension();
+                        $request->file('description')->move(public_path("/img/hotels"), $fileNameDescription);
+                        $hotel->description = $fileNameDescription;
+                    }
+                }
+
                 $hotel->name = $request->name;
                 $hotel->address = $request->address;
                 $hotel->city = $request->city;
                 $hotel->star = $request->star;
                 $hotel->x_coordinate = $request->x_coordinate;
                 $hotel->y_coordinate = $request->y_coordinate;
-                $hotel->description = $request->description;;
+
 
                 if ($hotel->save()) {
                     $data['success'] = true;
