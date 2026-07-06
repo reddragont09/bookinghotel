@@ -35,7 +35,7 @@ class ImageController extends Controller
                 $data['success'] = true;
                 $data['file'] = "/img/hotels/" . $fileName;
 
-                return response()->json(['data' => $data]);
+                return response()->json(['url' => "https://api2.cgpluxurygroup.com/img/hotels/" . $fileName]);
         } catch (\Throwable $th) {
             $data['errr'] = $th->getMessage();
             $data['success'] =  false;
