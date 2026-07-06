@@ -44,6 +44,30 @@ class ImageController extends Controller
         return response()->json(['data' => $data]);
     }
 
+    public function hotelCkeditor(Request $request)
+    {
+        try {
+            $data = $this->validateData([
+                'upload' => 'required',
+            ]);
+
+            $fileName = null;
+            if ($request->file('upload')) {
+                $fileName = "hotel_" . time() . "." . $request->file('upload')->getClientOriginalExtension();
+                $request->file('upload')->move(public_path("/img/hotels"), $fileName);
+            }
+            $data['success'] = true;
+            $data['file'] = "/img/hotels/" . $fileName;
+
+            return response()->json(['url' => "https://api2.cgpluxurygroup.com/img/hotels/" . $fileName]);
+        } catch (\Throwable $th) {
+            $data['errr'] = $th->getMessage();
+            $data['success'] =  false;
+        }
+
+        return response()->json(['data' => $data]);
+    }
+
 
     //Validate data and return data with errors if exist
     public function validateData(array $rules)

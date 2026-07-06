@@ -62,6 +62,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 
 Route::post('image/hotel', 'ImageController@hotel');
+Route::post('image/hotel/ckeditor', 'ImageController@hotelCkeditor');
+
 //Hotel routes
 Route::get('hotels', 'HotelController@index');
 Route::post('hotels/search', 'HotelController@search');
