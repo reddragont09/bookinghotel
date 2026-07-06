@@ -66,6 +66,7 @@ class HotelController extends Controller
                     'x_coordinate' => 'required',
                     'y_coordinate' => 'required',
                     'image' => 'required',
+                    'description' => 'required',
                 ]);
 
                 $fileName = null;
@@ -82,6 +83,7 @@ class HotelController extends Controller
                 $hotel->x_coordinate = $request->x_coordinate;
                 $hotel->y_coordinate = $request->y_coordinate;
                 $hotel->image = $fileName;
+                $hotel->description = $request->description;;
 
                 if ($hotel->save()) {
                     $data['success'] = true;
@@ -102,8 +104,8 @@ class HotelController extends Controller
         if ($hotel) {
             $data['success'] = true;
             $data['hotel'] = Hotel::leftjoin('rooms', 'hotels.id', '=', 'rooms.hotel_id')
-                ->select('hotels.id', 'hotels.name', 'hotels.star', 'hotels.image', 'hotels.city', 'hotels.address', 'hotels.x_coordinate', 'hotels.y_coordinate', DB::raw('MIN(rooms.price) as min_price'))
-                ->groupBy('hotels.id', 'hotels.name', 'hotels.star', 'hotels.image', 'hotels.city', 'hotels.address', 'hotels.x_coordinate', 'hotels.y_coordinate')
+                ->select('hotels.id', 'hotels.name', 'hotels.star', 'hotels.image', 'hotels.city', 'hotels.address', 'hotels.x_coordinate', 'hotels.y_coordinate', 'hotels.description', DB::raw('MIN(rooms.price) as min_price'))
+                ->groupBy('hotels.id', 'hotels.name', 'hotels.star', 'hotels.image', 'hotels.city', 'hotels.address', 'hotels.x_coordinate', 'hotels.y_coordinate', 'hotels.description')
                 ->where('hotels.id', $hotel->id)
                 ->first();
             $data['hotel']['rooms'] = $hotel->rooms->take(6);
@@ -125,6 +127,7 @@ class HotelController extends Controller
                     'star' => 'required',
                     'x_coordinate' => 'required',
                     'y_coordinate' => 'required',
+                    'description' => 'required',
                 ]);
 
                 if ($request->hasFile('image')) {
@@ -142,6 +145,7 @@ class HotelController extends Controller
                 $hotel->star = $request->star;
                 $hotel->x_coordinate = $request->x_coordinate;
                 $hotel->y_coordinate = $request->y_coordinate;
+                $hotel->description = $request->description;;
 
                 if ($hotel->save()) {
                     $data['success'] = true;
