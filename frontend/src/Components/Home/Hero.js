@@ -33,17 +33,11 @@ function Hero() {
                     Enjoy a luxury experience in <br />
                     <Typical
                         steps={[
-                            " Marrakech",
+                            " CGP",
                             3000,
-                            " Rabat",
+                            " LUXURY",
                             3000,
-                            " Tanger",
-                            3000,
-                            " Fes",
-                            3000,
-                            " Casablanca",
-                            3000,
-                            " Agadir",
+                            " HOTEL",
                             3000
                         ]}
                         loop={Infinity}

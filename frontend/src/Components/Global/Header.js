@@ -31,7 +31,7 @@ function Header({ hotelId }) {
                 }}
             >
                 <Link
-                    to="/"
+                    to="/hotel/1"
                     className="z-50 text-2xl sm:text-2xl text-yellow-600 "
                 >
                     <img
