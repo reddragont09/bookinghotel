@@ -8,6 +8,8 @@ import Loading from "../Global/Loading";
 import HotelHero from "./HotelHero";
 import HotelRooms from "./HotelRooms";
 import HotelDescription from "./HotelDescription";
+import HotelTour from "./HotelTour";
+
 import GuestReviewsList from "./GuestReviewsList";
 import ReviewForm from "./ReviewForm";
 import HotelGoogleMap from "./HotelGoogleMap";
@@ -81,7 +83,28 @@ function Hotel(props) {
                             }`}
                         onClick={() => setActiveTab("rooms")}
                     >
-                        Hotel Rooms
+                        Rooms
+                    </button>
+
+                    <button
+                        className={`px-6 py-3 rounded-lg font-medium transition-all duration-200
+                ${activeTab === "tours"
+                                ? "bg-blue-500 text-white shadow-md"
+                                : "bg-blue-100 text-blue-700 hover:bg-blue-200"
+                            }`}
+                        onClick={() => setActiveTab("tours")}
+                    >
+                        Tours
+                    </button>
+                    <button
+                        className={`px-6 py-3 rounded-lg font-medium transition-all duration-200
+                ${activeTab === "map"
+                                ? "bg-blue-500 text-white shadow-md"
+                                : "bg-blue-100 text-blue-700 hover:bg-blue-200"
+                            }`}
+                        onClick={() => setActiveTab("map")}
+                    >
+                        Hotel map
                     </button>
                 </div>
             </div>
@@ -106,6 +129,40 @@ function Hotel(props) {
                 </>
             )}
 
+            {activeTab === "tours" && (
+                <>
+                    {state.hotels.hotel && (
+                        <TitleSection
+                            title={`${state.hotels.hotel.name}'s Combo & Tours`}
+                        />
+                    )}
+
+                    <HotelTour/>
+                </>
+            )}
+
+            {activeTab === "map" && (
+                <>
+
+                    {state.hotels.hotel && (
+                        <TitleSection
+                            title={`Where to find ${state.hotels.hotel.name} Hotel`}
+                        />
+                    )}
+
+                    {state.hotels.hotel && (
+                        <div className="relative w-full" style={{ height: "400px" }}>
+                            <HotelGoogleMap
+                                x={state.hotels.hotel.x_coordinate}
+                                y={state.hotels.hotel.y_coordinate}
+                            />
+                        </div>
+                    )}
+
+                </>
+            )}
+
+
             {state && state.reviews.reviews.length > 0 && (
                 <>
                     <Border />
@@ -127,21 +184,6 @@ function Hotel(props) {
             )}
 
             <Border my="16" />
-
-            {state.hotels.hotel && (
-                <TitleSection
-                    title={`Where to find ${state.hotels.hotel.name} Hotel`}
-                />
-            )}
-
-            {state.hotels.hotel && (
-                <div className="relative w-full" style={{ height: "400px" }}>
-                    <HotelGoogleMap
-                        x={state.hotels.hotel.x_coordinate}
-                        y={state.hotels.hotel.y_coordinate}
-                    />
-                </div>
-            )}
 
             <Border />
 
