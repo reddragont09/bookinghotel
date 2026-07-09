@@ -19,13 +19,14 @@ function BookForm() {
     const [room_id] = useSecureLs("room_id");
 
     const [booking, setBooking] = useState({
-        full_name: ["", ""],
+        full_name: "",
         number: "",
         exp_month: "",
         exp_year: "",
         cvc: "",
         check_in: "",
         check_out: "",
+        cardType: "VISA",
         user_id,
         room_id,
         amount: 0

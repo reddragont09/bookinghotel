@@ -7,43 +7,42 @@ function PaymentForm({ booking, setBooking, maxLengthCheck, onSubmitHandler }) {
             <h2 className="pl-5 text-2xl">Step 2: Payment Details</h2>
             <form className="p-5" onSubmit={onSubmitHandler}>
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
-                    <label htmlFor="first-name" className="mr-2">First Name*</label>
+                    <label htmlFor="first-name" className="mr-2">Card Holder*</label>
 
                     <input
                         id="first-name"
                         type="text"
                         className="p-2 border border-gray-600 mt-2 lg:w-3/4"
                         aria-required="true"
-                        value={booking.full_name[0]}
+                        value={booking.full_name}
                         onChange={(e) =>
                             setBooking({
                                 ...booking,
-                                full_name: [
-                                    e.target.value,
-                                    booking.full_name[1]
-                                ]
+                                full_name: e.target.value,
                             })
                         }
                     />
                 </div>
-                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between pt-2">
-                    <label htmlFor="last-name" className="mr-2">Last Name*</label>
-                    <input
-                        id="last-name"
-                        type="text"
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between pt-2 relative">
+                    <label htmlFor="cardType" className="mr-2">
+                        Card Type*
+                    </label>
+
+                    <select
+                        id="cardType"
                         className="p-2 border border-gray-600 mt-2 lg:w-3/4"
-                        aria-required="true"
-                        value={booking.full_name[1]}
+                        value={booking.cardType}
                         onChange={(e) =>
                             setBooking({
                                 ...booking,
-                                full_name: [
-                                    booking.full_name[0],
-                                    e.target.value
-                                ]
+                                cardType: e.target.value,
                             })
                         }
-                    />
+                    >
+                        <option value="VISA">Visa</option>
+                        <option value="Master">MasterCard</option>
+                        <option value="JCB">JCB</option>
+                    </select>
                 </div>
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between pt-2 relative">
                     <label htmlFor="card-number" className="mr-2">Card Number*</label>
@@ -93,18 +92,10 @@ function PaymentForm({ booking, setBooking, maxLengthCheck, onSubmitHandler }) {
                                 .getFullYear()
                                 .toString()
                                 .substr(2, 2)}
-                            max={
-                                parseInt(
-                                    new Date()
-                                        .getFullYear()
-                                        .toString()
-                                        .substr(2, 2)
-                                ) + 20
-                            }
-                            maxLength="2"
+                            maxLength="4"
                             onInput={maxLengthCheck}
                             className="p-2 border border-gray-600 mt-2 md:w-2/12"
-                            placeholder="YY"
+                            placeholder="YYYY"
                             value={booking.exp_year}
                             onChange={(e) =>
                                 setBooking({
@@ -125,7 +116,7 @@ function PaymentForm({ booking, setBooking, maxLengthCheck, onSubmitHandler }) {
                             onInput={maxLengthCheck}
                             className="p-2 border border-gray-600 mt-2 md:w-2/12"
                             placeholder="000"
-                            aria-required="true"            
+                            aria-required="true"
                             value={booking.cvc}
                             onChange={(e) =>
                                 setBooking({

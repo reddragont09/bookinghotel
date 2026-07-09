@@ -55,9 +55,9 @@ export const addBooking = (dispatch, booking, token) => {
     setLoading(dispatch, true);
     axios
         .post(
-            `${url}/api/bookings`,
+            `${url}/api/user/bookings`,
             {
-                full_name: booking.full_name[0] + " " + booking.full_name[1],
+                full_name: booking.full_name,
                 number: booking.number,
                 exp_month: booking.exp_month,
                 exp_year: booking.exp_year,
@@ -66,6 +66,7 @@ export const addBooking = (dispatch, booking, token) => {
                 check_out: booking.check_out,
                 user_id: booking.user_id,
                 room_id: booking.room_id,
+                card_type: booking.cardType,
                 amount: booking.amount
             },
             {

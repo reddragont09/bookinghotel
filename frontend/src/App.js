@@ -69,7 +69,7 @@ function App() {
                         component={Search}
                     />
 
-                    <ProtectedRoute exact path="/book" component={Book} />
+                    <Route exact path="/book" component={Book} />
                     {/* USER */}
                     <ProtectedRoute
                         exact
