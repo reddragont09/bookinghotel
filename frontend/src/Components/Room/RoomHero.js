@@ -12,15 +12,29 @@ function RoomHero({ room }) {
     const [_image, setImage] = useState("");
 
     useEffect(() => {
+        if (!room) {
+            console.log("Room is null");
+            return;
+        }
+
+        let firstImage = "";
+
         try {
-            let images = room && room.image.split(",");
-            room && setImage(images[0]);
-        } catch (error) {}
+            if (room.image) {
+                const images = room.image.split(",");
+                firstImage = images[0];
+                setImage(firstImage);
+            }
+        } catch (error) {
+            console.error("Split image error:", error);
+        }
+
         setRoomId(room.id);
         setRoomName(room.name);
         setRoomPrice(room.price);
-        setRoomImage(_image);
-    }, [room, _image]); // eslint-disable-line
+        setRoomImage(firstImage);
+
+    }, [room]); // eslint-disable-line
     return (
         <section>
             <div className="grid grid-cols-1 md:grid-cols-2">

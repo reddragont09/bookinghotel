@@ -1,20 +1,20 @@
 import SecureLS from "secure-ls";
 import { useEffect, useState } from "react";
 
-let ls = new SecureLS({ encodingType: "aes", isCompression: false });
+const ls = new SecureLS({
+    encodingType: "aes",
+    isCompression: false,
+});
 
-function useSecureLs(key, initValue) {
+function useSecureLs(key, initValue = null) {
     const [value, setValue] = useState(() => {
-        try {
-            const jsonValue = ls.get(key);
-            if (jsonValue !== null) return jsonValue;
-            return initValue;
-        } catch (error) {}
+        const data = ls.get(key);
+        return data !== null ? data : initValue;
     });
 
     useEffect(() => {
         ls.set(key, value);
-    }, [key, value]); // eslint-disable-line
+    }, [key, value]);
 
     return [value, setValue];
 }
