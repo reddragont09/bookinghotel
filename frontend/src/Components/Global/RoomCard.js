@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 function RoomCard({ room }) {
     const [image, setImage] = useState(null);
+    const increasePercent = Math.floor(Math.random() * 36) + 10;
     useEffect(() => {
         try {
             let images = room && room.image.split(",");
@@ -27,9 +28,9 @@ function RoomCard({ room }) {
                     <div className="absolute bottom-0 text-gray-100 flex">
                         <div className="bg-orange-600 py-2 px-6 rounded-tr-lg flex flex-col items-center">
                             <span className="line-through text-gray-300 text-sm">
-                                {parseFloat(room.price) + 100} $
+                                {(parseFloat(room.price) * (1 + increasePercent / 100)).toLocaleString()} VND
                             </span>
-                            <span className="text-xl">{room.price} $</span>
+                            <span className="text-xl">{room.price} VND</span>
                         </div>
                     </div>
                 </div>

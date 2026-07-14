@@ -86,7 +86,8 @@ function Hotel(props) {
                         Rooms
                     </button>
 
-                    <button
+
+                    {/* <button
                         className={`px-6 py-3 rounded-lg font-medium transition-all duration-200
                 ${activeTab === "tours"
                                 ? "bg-blue-500 text-white shadow-md"
@@ -95,7 +96,7 @@ function Hotel(props) {
                         onClick={() => setActiveTab("tours")}
                     >
                         Tours
-                    </button>
+                    </button> */}
                     <button
                         className={`px-6 py-3 rounded-lg font-medium transition-all duration-200
                 ${activeTab === "map"
