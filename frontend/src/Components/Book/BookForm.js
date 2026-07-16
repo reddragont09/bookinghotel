@@ -17,16 +17,12 @@ function BookForm() {
     const state = useSelector((state) => state);
     const [user_id] = useSecureLs("user_id");
     const [room_id] = useSecureLs("room_id");
+    const [submitted, setSubmitted] = useState(false);
 
     const [booking, setBooking] = useState({
-        full_name: "",
-        number: "",
-        exp_month: "",
-        exp_year: "",
-        cvc: "",
+        guest_name: "",
         check_in: "",
         check_out: "",
-        cardType: "VISA",
         user_id,
         room_id,
         amount: 0
@@ -40,6 +36,16 @@ function BookForm() {
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
+        setSubmitted(true);
+
+        if (
+            !booking.guest_name ||
+            !booking.check_in ||
+            !booking.check_out
+        ) {
+            return;
+        }
+
         addBooking(dispatch, booking, state.auth.token);
     };
 
@@ -66,15 +72,21 @@ function BookForm() {
             )}
             {state.bookings.success && <SuccessMessage message="Success" />}
             <div className="bg-gray-300 p-5 lg:w-7/12 border border-gray-400 rounded-sm ">
-                <BookingDetails booking={booking} setBooking={setBooking} />
-                <Border borderColor="border-gray-500" my="8" />
+                <BookingDetails booking={booking} setBooking={setBooking} submitted={submitted} />
+                {/* <Border borderColor="border-gray-500" my="8" />
                 <PaymentForm
                     booking={booking}
                     setBooking={setBooking}
                     maxLengthCheck={maxLengthCheck}
                     onSubmitHandler={onSubmitHandler}
                 />
-                <Border borderColor="border-gray-500" my="8" />
+                <Border borderColor="border-gray-500" my="8" /> */}
+                <button
+                    type="button" onClick={onSubmitHandler}
+                    className="bg-orange-700 mt-5 py-2 px-6 text-3xl text-gray-200 block w-10/12 mx-auto hover:bg-orange-900"
+                >
+                    BOOK
+                </button>
             </div>
         </div>
     );

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import useSecureLs from "../Global/useSecureLs";
 
-function BookingDetails({ booking, setBooking }) {
+function BookingDetails({ booking, setBooking, submitted }) {
     const [price, setPrice] = useState(0);
     const [room_id] = useSecureLs("room_id");
     const [room_name] = useSecureLs("room_name");
     const [room_price] = useSecureLs("room_price");
     const [room_image] = useSecureLs("room_image");
+    const today = new Date().toISOString().split("T")[0];
     const room = {
         room_id,
         name: room_name,
@@ -26,6 +27,12 @@ function BookingDetails({ booking, setBooking }) {
             }
         }
     };
+
+    const inputClass = (value) =>
+        `mt-2 md:mt-0 px-6 py-3 w-full md:w-3/4 border rounded ${submitted && !value
+            ? "border-red-500 animate-pulse"
+            : "border-gray-300"
+        }`;
 
     useEffect(() => {
         calcPrice();
@@ -62,6 +69,26 @@ function BookingDetails({ booking, setBooking }) {
                         <div className="mt-8">
                             <div className="flex flex-col md:flex-row md:justify-between items-center">
                                 <label
+                                    htmlFor="guest-name"
+                                    className="mr-5 text-gray-900 md:w-1/4"
+                                >
+                                    Guest Name
+                                </label>
+                                <input
+                                    id="guest-name"
+                                    className={inputClass(booking.guest_name)}
+                                    type="text"
+                                    value={booking.guest_name}
+                                    onChange={(e) => {
+                                        setBooking({
+                                            ...booking,
+                                            guest_name: e.target.value,
+                                        });
+                                    }}
+                                />
+                            </div>
+                            <div className="flex flex-col md:flex-row md:justify-between items-center mt-4">
+                                <label
                                     htmlFor="check-in"
                                     className="mr-5 text-gray-900 md:w-1/4"
                                 >
@@ -69,14 +96,20 @@ function BookingDetails({ booking, setBooking }) {
                                 </label>
                                 <input
                                     id="check-in"
-                                    className="mt-2 md:mt-0 px-6 py-3 wf w-full md:w-3/4"
+                                    className={inputClass(booking.check_in)}
                                     type="date"
+                                    min={today}
                                     value={booking.check_in}
                                     onChange={(e) => {
+                                        const checkIn = e.target.value;
                                         calcPrice();
                                         setBooking({
                                             ...booking,
-                                            check_in: e.target.value,
+                                            check_in: checkIn,
+                                            check_out:
+                                                booking.check_out && booking.check_out <= checkIn
+                                                    ? ""
+                                                    : booking.check_out,
                                             amount: price
                                         });
                                     }}
@@ -91,8 +124,9 @@ function BookingDetails({ booking, setBooking }) {
                                 </label>
                                 <input
                                     id="check-out"
-                                    className="mt-2 md:mt-0 px-6 py-3 wf w-full md:w-3/4"
+                                    className={inputClass(booking.check_out)}
                                     type="date"
+                                    min={booking.check_in || today}
                                     value={booking.check_out}
                                     onChange={(e) => {
                                         calcPrice();

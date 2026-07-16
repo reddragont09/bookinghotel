@@ -40,7 +40,7 @@ function Header({ hotelId }) {
                         alt="logo"
                     />
                     <span className="hidden md:inline-block font-serif">
-                        Booking Lake
+                        CGP LUXURY
                     </span>
                 </Link>
 

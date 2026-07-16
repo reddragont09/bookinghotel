@@ -1,6 +1,7 @@
 import {
     GET_USER_BOOKINGS,
     GET_ALL_BOOKINGS,
+    BOOKING_SUCCESS,
     ADD_BOOKING
 } from "../actionTypes";
 import { setLoading } from "./global";
@@ -51,39 +52,79 @@ export const getUserBookings = (dispatch, id, token, page = 1) => {
         });
 };
 //-----------------------------------------
-export const addBooking = (dispatch, booking, token) => {
+export const addBooking = async (dispatch, booking, token) => {
     setLoading(dispatch, true);
-    axios
+    const res = await axios.post(
+        `${url}/api/user/bookings`,
+        {
+            guest_name: booking.guest_name,
+            check_in: booking.check_in,
+            check_out: booking.check_out,
+            user_id: booking.user_id,
+            room_id: booking.room_id,
+            amount: booking.amount
+        },
+        {
+            headers: { Authorization: `Bearer ${token}` }
+        }
+    );
+
+    if (!res.data.postData) {
+        setLoading(dispatch, false);
+        return;
+    }
+
+    const pay = res.data.postData;
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "https://test.paydollar.com/b2cDemo/eng/payment/payForm.jsp";
+
+    Object.entries(pay).forEach(([key, value]) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = key;
+        input.value = value;
+
+        form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+    form.submit();
+};
+
+export const addBookingFail = (ref, token) => {
+    return axios
         .post(
-            `${url}/api/user/bookings`,
+            `${url}/api/user/booking/fail`,
+            { ref },
             {
-                full_name: booking.full_name,
-                number: booking.number,
-                exp_month: booking.exp_month,
-                exp_year: booking.exp_year,
-                cvc: booking.cvc,
-                check_in: booking.check_in,
-                check_out: booking.check_out,
-                user_id: booking.user_id,
-                room_id: booking.room_id,
-                card_type: booking.cardType,
-                amount: booking.amount
-            },
-            {
-                headers: { Authorization: `Bearer ${token}` }
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             }
         )
         .then((response) => {
-            dispatch({
-                type: ADD_BOOKING,
-                payload: response.data.data
-            });
-            setLoading(dispatch, false);
+            return response.data.data;
         })
-        .catch((error) => {
-            setLoading(dispatch, false);
-            if (error.response.status === 401) {
-                window.location.replace("/401");
-            }
+        .finally(() => {
         });
 };
+
+export const addBookingSuccess = (ref, token) => {
+    return axios
+        .post(
+            `${url}/api/user/booking/success`,
+            { ref },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        )
+        .then((response) => {
+            return response.data.data;
+        })
+        .finally(() => {
+        });
+};
+

@@ -3,6 +3,7 @@ import {
     GET_ALL_BOOKINGS,
     ADD_BOOKING,
     SET_LOADING,
+    BOOKING_SUCCESS,
     SET_SUCCESS
 } from "../actionTypes";
 
@@ -79,6 +80,12 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 success: action.payload
+            };
+        }
+        case BOOKING_SUCCESS: {
+            return {
+                ...state,
+                data: action.payload
             };
         }
         default:

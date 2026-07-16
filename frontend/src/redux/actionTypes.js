@@ -41,3 +41,5 @@ export const DELETE_REVIEW = "DELETE_REVIEW";
 export const HAS_BOOKED = "HAS_BOOKED";
 
 export const SET_SUCCESS = "SET_SUCCESS";
+
+export const BOOKING_SUCCESS = "BOOKING_SUCCESS";

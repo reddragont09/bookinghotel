@@ -8,6 +8,8 @@ import Hotel from "./Components/Hotel";
 import Room from "./Components/Room";
 import Book from "./Components/Book";
 import Search from "./Components/Search";
+import PaymentFail from "./Components/PaymentFail";
+import PaymentSuccess from "./Components/PaymentSuccess";
 
 import UserProfile from "./Components/UserDashboard/UserProfile";
 import UserBookings from "./Components/UserDashboard/UserBookings";
@@ -60,6 +62,8 @@ function App() {
                     <Route exact path="/signup" component={Signup} />
                     <Route exact path="/logout" component={Logout} />
                     <Route exact path="/hotel/:id" component={Hotel} />
+                    <Route exact path="/payment/fail" component={PaymentFail} />
+                    <Route exact path="/payment/success" component={PaymentSuccess} />
                     <Route exact path="/room/:id" component={Room} />
                     <Route
                         path={[

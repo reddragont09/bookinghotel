@@ -16,7 +16,7 @@ function Welcome() {
             <div className="mt-8 p-8 xl:px-48 ">
                 <div className="text-center ">
                     <h2 className="text-4xl font-semibold text-gray-800 font-serif">
-                        Welcome To Booking Lake
+                        Welcome To CGP LUXURY
                     </h2>
 
                     <p className="text-gray-600 mt-5">
