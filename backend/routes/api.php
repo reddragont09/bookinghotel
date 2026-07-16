@@ -62,6 +62,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 
 Route::post('user/bookings', 'BookingController@userBooking');
+Route::post('user/booking/fail', 'BookingController@userBookingFail');
+Route::post('user/booking/success', 'BookingController@userBookingSuccess');
 
 Route::post('image/hotel', 'ImageController@hotel');
 Route::post('image/hotel/ckeditor', 'ImageController@hotelCkeditor');
