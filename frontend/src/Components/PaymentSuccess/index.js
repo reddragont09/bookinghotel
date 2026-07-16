@@ -30,7 +30,7 @@ function PaymentSuccess() {
                 console.error(e);
             }
         }
-        if (ref && token) {
+        if (ref) {
             loadBooking();
         }
     }, [dispatch, ref, token]);

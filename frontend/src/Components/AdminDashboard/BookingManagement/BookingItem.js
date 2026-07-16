@@ -9,6 +9,8 @@ export default class BookingItem extends Component {
             image,
             city,
             price,
+            amount,
+            guest_name,
             check_in,
             check_out,
             first_name,
@@ -40,7 +42,7 @@ export default class BookingItem extends Component {
                         City : <span>{city}</span>
                     </li>
                     <li className="mt-2 font-semibold">
-                        Price : <span>{price}</span>$
+                        Price : <span>{new Intl.NumberFormat("vi-VN").format(amount)}</span> VND
                     </li>
                     <li className="mt-2 font-semibold">
                         Check-in Date : <span>{check_in}</span>
@@ -51,7 +53,7 @@ export default class BookingItem extends Component {
                     <li className="mt-2 font-semibold">
                         Booked by :{" "}
                         <span>
-                            {first_name} {last_name}
+                            {guest_name}
                         </span>
                     </li>
                     <li className="mt-2 font-semibold">
