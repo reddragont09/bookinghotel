@@ -212,14 +212,20 @@ class BookingController extends Controller
                 return response()->json(['data' => $data]);
             }
 
-            $booking = Booking::where('id', $request->ref)
-                ->where('status', 1)->firstOrFail();
+            $booking = Booking::where('id', $request->ref)->firstOrFail();
 
             if (!$booking) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Booking not found'
                 ], 404);
+            }
+
+            if ($booking->status != 1) {
+                return response()->json([
+                    'success' => "success",
+                    'data' => $booking
+                ]);
             }
 
 
@@ -256,14 +262,20 @@ class BookingController extends Controller
                 return response()->json(['data' => $data]);
             }
 
-            $booking = Booking::where('id', $request->ref)
-                ->where('status', 1)->firstOrFail();
+            $booking = Booking::where('id', $request->ref)->firstOrFail();
 
             if (!$booking) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Booking not found'
                 ], 404);
+            }
+
+            if ($booking->status != 1) {
+                return response()->json([
+                    'success' => "success",
+                    'data' => $booking
+                ]);
             }
 
 
