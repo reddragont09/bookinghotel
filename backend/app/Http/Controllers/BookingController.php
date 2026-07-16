@@ -22,9 +22,9 @@ class BookingController extends Controller
             $data['success'] = true;
             $data['bookings'] =  Booking::join('rooms', 'rooms.id', '=', 'bookings.room_id')
                 ->join('hotels', 'hotels.id', '=', 'rooms.hotel_id')
-                ->join('users', 'users.id', '=', 'bookings.user_id')
-                ->select('bookings.id', 'hotels.name', 'users.first_name', 'users.last_name', 'hotels.city', 'hotels.image', 'rooms.price', 'bookings.check_in', 'bookings.check_out', 'bookings.created_at')
-                ->groupBy('bookings.id', 'hotels.name', 'users.first_name', 'users.last_name', 'hotels.city', 'hotels.image', 'rooms.price', 'bookings.check_in', 'bookings.check_out', 'bookings.created_at')
+                ->leftjoin('users', 'users.id', '=', 'bookings.user_id')
+                ->select('bookings.id', 'hotels.name', 'users.first_name', 'users.last_name', 'hotels.city', 'hotels.image', 'rooms.price', 'bookings.*')
+                ->groupBy('bookings.id', 'hotels.name', 'users.first_name', 'users.last_name', 'hotels.city', 'hotels.image', 'rooms.price', 'bookings.id')
                 ->orderBy('bookings.created_at', 'desc')
                 ->paginate(6);
         } else
