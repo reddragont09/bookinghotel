@@ -224,7 +224,7 @@ class BookingController extends Controller
 
 
             Booking::where('id', $booking->id)
-                ->where('status', 2)
+                ->where('status', 1)
                 ->update([
                     'status' => 3
                 ]);
@@ -268,7 +268,7 @@ class BookingController extends Controller
 
 
             Booking::where('id', $booking->id)
-                ->where('status', 2)
+                ->where('status', 1)
                 ->update([
                     'status' => 2
                 ]);
