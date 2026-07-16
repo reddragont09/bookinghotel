@@ -203,6 +203,93 @@ class BookingController extends Controller
         }
     }
 
+    public function userBookingFail(Request $request)
+    {
+        try {
+
+            $data = $this->validateData([
+                'ref'      => 'required',
+            ]);
+
+            if ($data !== null) {
+                $data['success'] = false;
+                return response()->json(['data' => $data]);
+            }
+
+            $booking = Booking::where('id', $request->ref)
+                ->where('status', 1)->firstOrFail();
+
+            if (!$booking) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Booking not found'
+                ], 404);
+            }
+
+
+//            Booking::where('id', $booking->id)
+//                ->where('status', 2)
+//                ->update([
+//                    'status' => 3
+//                ]);
+
+            return response()->json([
+                'success' => "success",
+            ]);
+
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function userBookingSuccess(Request $request)
+    {
+        try {
+
+            $data = $this->validateData([
+                'ref'      => 'required',
+            ]);
+
+            if ($data !== null) {
+                $data['success'] = false;
+                return response()->json(['data' => $data]);
+            }
+
+            $booking = Booking::where('id', $request->ref)
+                ->where('status', 1)->firstOrFail();
+
+            if (!$booking) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Booking not found'
+                ], 404);
+            }
+
+
+//            Booking::where('id', $booking->id)
+//                ->where('status', 2)
+//                ->update([
+//                    'status' => 2
+//                ]);
+
+            return response()->json([
+                'success' => "success",
+                'data' => $booking
+            ]);
+
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     public function generatePaymentSecureHash($merchantId, $merchantReferenceNumber, $currencyCode, $amount, $paymentType, $secureHashSecret) {
 
         $buffer = $merchantId . '|' . $merchantReferenceNumber . '|' . $currencyCode . '|' . $amount . '|' . $paymentType . '|' . $secureHashSecret;
