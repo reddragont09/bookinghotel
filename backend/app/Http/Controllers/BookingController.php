@@ -125,6 +125,7 @@ class BookingController extends Controller
                 'room_id'      => 'required',
                 'card_type'    => 'required',
                 'full_name'    => 'required',
+                'full_name'    => 'required',
             ]);
 
             if ($data !== null) {
@@ -164,21 +165,20 @@ class BookingController extends Controller
 
             $postData = [
                 'merchantId'  => env('MERCHANT_ID'),
-                'orderRef'    => (string)$booking->id,
                 'amount'      => $amount,
+                'orderRef'    => (string)$booking->id,
                 'currCode'    => env('CURR_CODE'),
-                'pMethod'     => $request->card_type,
-                'epMonth'     => $request->exp_month,
-                'epYear'      => $request->exp_year,
-                'cardNo'      => $request->number,
-                'cardHolder'  => $request->full_name,
-                'securityCode'=> $request->cvc,
+                'mpsMode' => 'NIL',
+                'successUrl' => env('SUCCESS_URL'),
+                'failUrl' => env('FAIL_URL'),
+                'cancelUrl' => env('FAIL_URL'),
                 'payType' => "N",
-                'remark'      => 'test',
+                'lang'       => 'E',
+                'payMethod'     => "CC",
             ];
 
             //create hash
-            $postData['secureHash'] = $this->generateSecureHash(
+            $postData['secureHash'] = $this->generatePaymentSecureHash(
                 $postData['merchantId'],
                 $postData['orderRef'],
                 $postData['currCode'],
@@ -188,62 +188,12 @@ class BookingController extends Controller
             );
 
             DB::commit();
-            $response = Http::timeout(60)
-                ->asForm()
-                ->post(env('PAYMENT_URL'), $postData);
-
-            // Pending -> Processing
-            Booking::where('id', $booking->id)
-                ->where('status', 1)
-                ->update([
-                    'status' => 2
-                ]);
-
-            $success = false;
-            $rssp  = "";
-
-            if ($response->successful()) {
-                $body = $response->body();
-                $rssp = $body;
-
-                /**
-                 * TODO:
-                 * Parse response theo tài liệu AsiaPay
-                 *
-                 * Ví dụ:
-                 * successcode=0
-                 * success=true
-                 * payResult=0
-                 */
-
-                if (str_contains($body, 'successcode=0')) {
-                    $success = true;
-                }
-            }
-
-            if ($success) {
-                Booking::where('id', $booking->id)
-                    ->where('status', 2)
-                    ->update([
-                        'status' => 3
-                    ]);
-
-            } else {
-                Booking::where('id', $booking->id)
-                    ->where('status', 2)
-                    ->update([
-                        'status' => 4
-                    ]);
-            }
 
             return response()->json([
-                'success' => $success,
+                'success' => "success",
                 'booking_id' => $booking->id,
                 'postData' => $postData,
-                'payment_response' => $response->body(),
-                'dd' => $rssp
             ]);
-
         } catch (\Throwable $e) {
             DB::rollBack();
             return response()->json([
@@ -253,24 +203,26 @@ class BookingController extends Controller
         }
     }
 
-    private function generateSecureHash(
-        $merchantId,
-        $orderRef,
-        $currCode,
-        $amount,
-        $paymentType,
-        $secret
-    ) {
-        $signingData = implode('|', [
-            $merchantId,
-            $orderRef,
-            $currCode,
-            $amount,
-            $paymentType,
-            $secret
-        ]);
+    public function generatePaymentSecureHash($merchantId, $merchantReferenceNumber, $currencyCode, $amount, $paymentType, $secureHashSecret) {
 
-        return sha1($signingData);
+        $buffer = $merchantId . '|' . $merchantReferenceNumber . '|' . $currencyCode . '|' . $amount . '|' . $paymentType . '|' . $secureHashSecret;
+        //echo $buffer;
+        return sha1($buffer);
+
+    }
+
+    public function verifyPaymentDatafeed($src, $prc, $successCode, $merchantReferenceNumber, $paydollarReferenceNumber, $currencyCode, $amount, $payerAuthenticationStatus, $secureHashSecret, $secureHash) {
+
+        $buffer = $src . '|' . $prc . '|' . $successCode . '|' . $merchantReferenceNumber . '|' . $paydollarReferenceNumber . '|' . $currencyCode . '|' . $amount . '|' . $payerAuthenticationStatus . '|' . $secureHashSecret;
+
+        $verifyData = sha1($buffer);
+
+        if ($secureHash == $verifyData) {
+            return true;
+        }
+
+        return false;
+
     }
 
 
