@@ -24,6 +24,7 @@ class BookingController extends Controller
                 ->join('hotels', 'hotels.id', '=', 'rooms.hotel_id')
                 ->leftjoin('users', 'users.id', '=', 'bookings.user_id')
                 ->select('hotels.name', 'users.first_name', 'users.last_name', 'hotels.city', 'hotels.image', 'rooms.price', 'bookings.*')
+                ->where('bookings.status', 2)
                 ->groupBy('hotels.name', 'users.first_name', 'users.last_name', 'hotels.city', 'hotels.image', 'rooms.price', 'bookings.id')
                 ->orderBy('bookings.created_at', 'desc')
                 ->paginate(6);
