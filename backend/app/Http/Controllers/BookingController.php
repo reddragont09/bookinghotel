@@ -223,11 +223,11 @@ class BookingController extends Controller
             }
 
 
-//            Booking::where('id', $booking->id)
-//                ->where('status', 2)
-//                ->update([
-//                    'status' => 3
-//                ]);
+            Booking::where('id', $booking->id)
+                ->where('status', 2)
+                ->update([
+                    'status' => 3
+                ]);
 
             return response()->json([
                 'success' => "success",
@@ -267,11 +267,11 @@ class BookingController extends Controller
             }
 
 
-//            Booking::where('id', $booking->id)
-//                ->where('status', 2)
-//                ->update([
-//                    'status' => 2
-//                ]);
+            Booking::where('id', $booking->id)
+                ->where('status', 2)
+                ->update([
+                    'status' => 2
+                ]);
 
             return response()->json([
                 'success' => "success",
