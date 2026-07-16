@@ -14,7 +14,8 @@ class AddColumnToBookingsTable extends Migration
     public function up()
     {
         Schema::table('bookings', function (Blueprint $table) {
-            //
+            $table->string('guest_name');
+            $table->double('amount');
         });
     }
 
@@ -26,7 +27,8 @@ class AddColumnToBookingsTable extends Migration
     public function down()
     {
         Schema::table('bookings', function (Blueprint $table) {
-            //
+            $table->dropColumn('guest_name');
+            $table->dropColumn('amount');
         });
     }
 }

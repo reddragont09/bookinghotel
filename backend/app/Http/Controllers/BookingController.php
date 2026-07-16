@@ -117,15 +117,10 @@ class BookingController extends Controller
 
             $data = $this->validateData([
                 'number'      => 'required',
-                'exp_month'   => 'required',
-                'exp_year'    => 'required',
-                'cvc'          => 'required',
                 'check_in'     => 'required|date',
                 'check_out'    => 'required|date|after:check_in',
                 'room_id'      => 'required',
-                'card_type'    => 'required',
-                'full_name'    => 'required',
-                'full_name'    => 'required',
+                'guest_name'    => 'required',
             ]);
 
             if ($data !== null) {
@@ -159,6 +154,8 @@ class BookingController extends Controller
             $booking->check_in = $request->check_in;
             $booking->check_out = $request->check_out;
             $booking->room_id = $request->room_id;
+            $booking->amount = $amount;
+            $booking->guest_name = $request->guest_name;
             $booking->status = 1; // Pending
 
             $booking->save();
@@ -235,6 +232,7 @@ class BookingController extends Controller
 
             return response()->json([
                 'success' => "success",
+                'data' => $booking
             ]);
 
         } catch (\Throwable $e) {
