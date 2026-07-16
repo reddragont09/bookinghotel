@@ -116,7 +116,6 @@ class BookingController extends Controller
         try {
 
             $data = $this->validateData([
-                'number'      => 'required',
                 'check_in'     => 'required|date',
                 'check_out'    => 'required|date|after:check_in',
                 'room_id'      => 'required',
