@@ -37,7 +37,7 @@ function HotelCard({ hotel: { id, name, min_price, star, image } }) {
                                     </div>
                                 </div>
                                 <div className="text-gray-100 font-semibold">
-                                    Starting From {min_price}$
+                                    Starting From {new Intl.NumberFormat("vi-VN").format(min_price)} VND
                                 </div>
                             </div>
                         </div>

@@ -47,7 +47,7 @@ function HotelHero({ hotel }) {
                     <div className="text-gray-100 mt-2 md:mt-0">
                         Starting From{" "}
                         <span className="text-3xl text-orange-300">
-                            {hotel && hotel.min_price}$
+                            {hotel && new Intl.NumberFormat("vi-VN").format(hotel.min_price)} VND
                         </span>
                     </div>
                 </div>

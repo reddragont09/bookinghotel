@@ -1,27 +1,20 @@
 import React, { Component } from "react";
-import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
-
 class HotelGoogleMap extends Component {
     render() {
+        const lng = parseFloat(this.props.x).toFixed(7);
+        const lat = parseFloat(this.props.y).toFixed(7);
+        console.log(lng, lat);
         return (
-            <Map
-                google={this.props.google}
-                zoom={17}
-                initialCenter={{
-                    lat: parseFloat(this.props.x),
-                    lng: parseFloat(this.props.y)
-                }}
-            >
-                <Marker
-                    position={{
-                        lat: parseFloat(this.props.x),
-                        lng: parseFloat(this.props.y)
-                    }}
-                />
-            </Map>
+            <iframe
+                title="Hotel Location"
+                width="100%"
+                height="450"
+                frameBorder="0"
+                scrolling="no"
+                src={`https://www.openstreetmap.org/export/embed.html?bbox=${lng - 0.003}%2C${lat - 0.003}%2C${lng + 0.003}%2C${lat + 0.003}&layer=mapnik&marker=${lat}%2C${lng}`}
+            />
         );
     }
 }
-export default GoogleApiWrapper({
-    apiKey: "AIzaSyB2Zn8qf1kw0a0KgAA8_EW6okxAlijDbHY"
-})(HotelGoogleMap);
+
+export default HotelGoogleMap;
