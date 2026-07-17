@@ -155,6 +155,8 @@ class BookingController extends Controller
             $booking->check_out = $request->check_out;
             $booking->room_id = $request->room_id;
             $booking->amount = $amount;
+            $booking->email = $request->email;
+            $booking->phone = $request->phone;
             $booking->guest_name = $request->guest_name;
             $booking->status = 1; // Pending
 
