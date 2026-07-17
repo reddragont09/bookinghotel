@@ -87,7 +87,7 @@ function BookingDetails({ booking, setBooking, submitted }) {
                                     }}
                                 />
                             </div>
-                            <div className="flex flex-col md:flex-row md:justify-between items-center">
+                            <div className="flex flex-col md:flex-row md:justify-between items-center mt-4">
                                 <label
                                     htmlFor="email"
                                     className="mr-5 text-gray-900 md:w-1/4"
@@ -107,7 +107,7 @@ function BookingDetails({ booking, setBooking, submitted }) {
                                     }}
                                 />
                             </div>
-                            <div className="flex flex-col md:flex-row md:justify-between items-center">
+                            <div className="flex flex-col md:flex-row md:justify-between items-center mt-4">
                                 <label
                                     htmlFor="phone"
                                     className="mr-5 text-gray-900 md:w-1/4"
