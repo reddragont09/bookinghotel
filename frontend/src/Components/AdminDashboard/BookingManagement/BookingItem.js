@@ -11,6 +11,8 @@ export default class BookingItem extends Component {
             price,
             amount,
             guest_name,
+            email,
+            phone,
             check_in,
             check_out,
             first_name,
@@ -54,6 +56,18 @@ export default class BookingItem extends Component {
                         Booked by :{" "}
                         <span>
                             {guest_name}
+                        </span>
+                    </li>
+                    <li className="mt-2 font-semibold">
+                        Email :{" "}
+                        <span>
+                            {email}
+                        </span>
+                    </li>
+                    <li className="mt-2 font-semibold">
+                        Phone number :{" "}
+                        <span>
+                            {phone}
                         </span>
                     </li>
                     <li className="mt-2 font-semibold">

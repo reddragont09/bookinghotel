@@ -87,6 +87,46 @@ function BookingDetails({ booking, setBooking, submitted }) {
                                     }}
                                 />
                             </div>
+                            <div className="flex flex-col md:flex-row md:justify-between items-center">
+                                <label
+                                    htmlFor="email"
+                                    className="mr-5 text-gray-900 md:w-1/4"
+                                >
+                                    Email
+                                </label>
+                                <input
+                                    id="email"
+                                    className="mt-2 md:mt-0 px-6 py-3 w-full md:w-3/4 border rounded"
+                                    type="text"
+                                    value={booking.email}
+                                    onChange={(e) => {
+                                        setBooking({
+                                            ...booking,
+                                            email: e.target.value,
+                                        });
+                                    }}
+                                />
+                            </div>
+                            <div className="flex flex-col md:flex-row md:justify-between items-center">
+                                <label
+                                    htmlFor="phone"
+                                    className="mr-5 text-gray-900 md:w-1/4"
+                                >
+                                    Phone Number
+                                </label>
+                                <input
+                                    id="phone"
+                                    className="mt-2 md:mt-0 px-6 py-3 w-full md:w-3/4 border rounded"
+                                    type="text"
+                                    value={booking.phone}
+                                    onChange={(e) => {
+                                        setBooking({
+                                            ...booking,
+                                            phone: e.target.value,
+                                        });
+                                    }}
+                                />
+                            </div>
                             <div className="flex flex-col md:flex-row md:justify-between items-center mt-4">
                                 <label
                                     htmlFor="check-in"

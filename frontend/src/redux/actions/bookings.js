@@ -58,6 +58,8 @@ export const addBooking = async (dispatch, booking, token) => {
         `${url}/api/user/bookings`,
         {
             guest_name: booking.guest_name,
+            email: booking.email,
+            phone: booking.phone,
             check_in: booking.check_in,
             check_out: booking.check_out,
             user_id: booking.user_id,

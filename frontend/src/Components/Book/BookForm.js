@@ -21,6 +21,8 @@ function BookForm() {
 
     const [booking, setBooking] = useState({
         guest_name: "",
+        email: "",
+        phone: "",
         check_in: "",
         check_out: "",
         user_id,
