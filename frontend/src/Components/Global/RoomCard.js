@@ -28,9 +28,9 @@ function RoomCard({ room }) {
                     <div className="absolute bottom-0 text-gray-100 flex">
                         <div className="bg-orange-600 py-2 px-6 rounded-tr-lg flex flex-col items-center">
                             <span className="line-through text-gray-300 text-sm">
-                                {(parseFloat(room.price) * (1 + increasePercent / 100)).toLocaleString()} VND
+                                {new Intl.NumberFormat("vi-VN").format((parseFloat(room.price) * (1 + increasePercent / 100)).toLocaleString())} VND
                             </span>
-                            <span className="text-xl">{room.price} VND</span>
+                            <span className="text-xl">{new Intl.NumberFormat("vi-VN").format(room.price)} VND</span>
                         </div>
                     </div>
                 </div>

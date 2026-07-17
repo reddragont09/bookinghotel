@@ -63,7 +63,7 @@ function BookingDetails({ booking, setBooking, submitted }) {
                         <div className="font-semibold text-2xl flex flex-col md:flex-row md:justify-between">
                             <span>{room.name}</span>
                             <span>
-                                <span>{price}</span> VND
+                                <span>{new Intl.NumberFormat("vi-VN").format(price)}</span> VND
                             </span>
                         </div>
                         <div className="mt-8">
