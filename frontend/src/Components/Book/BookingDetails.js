@@ -23,7 +23,7 @@ function BookingDetails({ booking, setBooking, submitted }) {
             const diffDays = Math.floor((check_out - check_in) / oneDay);
 
             if (diffDays > 0) {
-                setPrice(room.price * diffDays);
+                setPrice(parseFloat(room.price) * diffDays);
             }
         }
     };
