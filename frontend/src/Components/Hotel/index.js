@@ -9,6 +9,7 @@ import HotelHero from "./HotelHero";
 import HotelRooms from "./HotelRooms";
 import HotelDescription from "./HotelDescription";
 import HotelTour from "./HotelTour";
+import HotelPackage from "./HotelPackage";
 
 import GuestReviewsList from "./GuestReviewsList";
 import ReviewForm from "./ReviewForm";
@@ -85,9 +86,17 @@ function Hotel(props) {
                     >
                         Rooms
                     </button>
-
-
-                    {/* <button
+                    <button
+                        className={`px-6 py-3 rounded-lg font-medium transition-all duration-200
+                    ${activeTab === "packages"
+                                ? "bg-blue-500 text-white shadow-md"
+                                : "bg-blue-100 text-blue-700 hover:bg-blue-200"
+                            }`}
+                        onClick={() => setActiveTab("packages")}
+                    >
+                        Stay Packages
+                    </button>
+                    <button
                         className={`px-6 py-3 rounded-lg font-medium transition-all duration-200
                 ${activeTab === "tours"
                                 ? "bg-blue-500 text-white shadow-md"
@@ -96,7 +105,7 @@ function Hotel(props) {
                         onClick={() => setActiveTab("tours")}
                     >
                         Tours
-                    </button> */}
+                    </button>
                     <button
                         className={`px-6 py-3 rounded-lg font-medium transition-all duration-200
                 ${activeTab === "map"
@@ -138,7 +147,19 @@ function Hotel(props) {
                         />
                     )}
 
-                    <HotelTour/>
+                    <HotelTour />
+                </>
+            )}
+
+            {activeTab === "packages" && (
+                <>
+                    {state.hotels.hotel && (
+                        <TitleSection
+                            title={`${state.hotels.hotel.name}'s Stay Packages`}
+                        />
+                    )}
+
+                    <HotelPackage hotel={state.hotels.hotel} />
                 </>
             )}
 
