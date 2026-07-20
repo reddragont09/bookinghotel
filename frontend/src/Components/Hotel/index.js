@@ -121,7 +121,8 @@ function Hotel(props) {
 
             {activeTab === "intro" && (
                 <>
-                    <TitleSection title={`${state.hotels.hotel.name}`} />
+                    <TitleSection title={`${state.hotels.hotel.name}`}
+                        star={state.hotels.hotel.star} />
 
                     <HotelDescription hotel={state.hotels.hotel} />
                 </>
@@ -132,6 +133,7 @@ function Hotel(props) {
                     {state.hotels.hotel && (
                         <TitleSection
                             title={`${state.hotels.hotel.name}'s Rooms`}
+                            star={state.hotels.hotel.star}
                         />
                     )}
 
@@ -144,6 +146,7 @@ function Hotel(props) {
                     {state.hotels.hotel && (
                         <TitleSection
                             title={`${state.hotels.hotel.name}'s Combo & Tours`}
+                            star={state.hotels.hotel.star}
                         />
                     )}
 
@@ -156,6 +159,7 @@ function Hotel(props) {
                     {state.hotels.hotel && (
                         <TitleSection
                             title={`${state.hotels.hotel.name}'s Stay Packages`}
+                            star={state.hotels.hotel.star}
                         />
                     )}
 
@@ -169,6 +173,7 @@ function Hotel(props) {
                     {state.hotels.hotel && (
                         <TitleSection
                             title={`Where to find ${state.hotels.hotel.name} Hotel`}
+                            star={state.hotels.hotel.star}
                         />
                     )}
 

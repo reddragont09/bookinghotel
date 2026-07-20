@@ -1,16 +1,23 @@
 import React from "react";
 
-function TitleSection({ title }) {
+function TitleSection({ title, star }) {
     return (
         <div className="my-8 md:px-16 xl:px-24 font-serif">
             <h2 className="text-4xl text-center font-semibold text-gray-800 ">
                 {title}
             </h2>
-            <div className="text-center">
-                <i className="fas fa-star fa-xs"></i>
-                <i className="fas fa-star fa-xs"></i>
-                <i className="fas fa-star fa-xs"></i>
-            </div>
+            {star && (
+                <div className="text-center">
+                    {Array(star)
+                        .fill()
+                        .map((_, i) => (
+                            <i
+                                key={i}
+                                className="fas fa-star fa-xs text-orange-400"
+                            ></i>
+                        ))}
+                </div>
+            )}
         </div>
     );
 }

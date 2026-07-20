@@ -10,7 +10,7 @@ function HotelPackageCard({ pkgs }) {
          <>
         {
             pkgs.map((pkg) => (
-                <div className="rounded-xl shadow p-6 bg-white">
+                <div key={pkg.name} className="rounded-xl shadow p-6 bg-white">
                     <span className="inline-block px-3 py-1 bg-orange-500 text-white rounded-full text-sm">
                         {pkg.badge}
                     </span>
