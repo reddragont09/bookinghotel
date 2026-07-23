@@ -1,0 +1,22 @@
+{
+    "hotel_intro": "호텔 소개",
+    "rooms": "객실",
+    "stay_packages": "숙박 패키지",
+    "tours": "투어",
+    "hotel_map": "호텔 위치",
+    "relax_stay": "휴식 & 숙박",
+    "romance_celebraation": "로맨스 & 기념일",
+    "family": "가족",
+    "long_stay": "장기 숙박",
+    "signature_collection": "시그니처 컬렉션",
+    "solo_traveller_collection": "1인 여행자 컬렉션",
+    "currency": "$",
+    "features": "객실 편의시설",
+    "book": "지금 예약하기",
+    "guest_name": "투숙객 이름",
+    "email": "이메일",
+    "phone_number": "전화번호",
+    "checkin": "체크인",
+    "checkout": "체크아웃",
+    "starting_from": "최저가"
+}

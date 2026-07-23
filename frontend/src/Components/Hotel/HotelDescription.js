@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
+import { useTranslation } from "react-i18next";
 
 pdfjs.GlobalWorkerOptions.workerSrc =
     `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 function HotelDescription({ hotel }) {
+    const { i18n } = useTranslation();
+
     const [numPages, setNumPages] = useState(null);
     const [pageWidth, setPageWidth] = useState(900);
 
@@ -23,7 +26,21 @@ function HotelDescription({ hotel }) {
 
     if (!hotel || !hotel.description) return null;
 
-    const pdfUrl = `${process.env.REACT_APP_BASE_URL}/api/hotel-pdf/${hotel.description}`;
+    let pdfName = hotel.description;
+    if (i18n.language == 'zh') {
+        if (hotel.description_zh) {
+            pdfName = hotel.description_zh;
+        }
+    } else if (i18n.language == 'ko') {
+        if (hotel.description_ko) {
+            pdfName = hotel.description_ko;
+        }
+    }
+
+    console.log(i18n.language);
+    console.log(pdfName);
+
+    const pdfUrl = `${process.env.REACT_APP_BASE_URL}/api/hotel-pdf/${pdfName}`;
 
     console.log(pdfUrl);
 

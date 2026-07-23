@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useSecureLs from "../Global/useSecureLs";
 import SecureLS from "secure-ls";
+import ReactCountryFlag from "react-country-flag";
+import i18n from "../../i18n";
 
 function Header({ hotelId }) {
     useEffect(() => {
@@ -17,12 +19,26 @@ function Header({ hotelId }) {
     const [id] = useSecureLs("user_id");
     let ls = new SecureLS({ encodingType: "aes", isCompression: false });
     const [firstLogin, setFirstLogin] = useState(false);
+    const [language, setLanguage] = useState(
+        localStorage.getItem("language") || "en"
+    );
+
+    const [languageDropdown, setLanguageDropdown] = useState(false);
+
+    const changeLanguage = (lang) => {
+        console.log(i18n);
+        console.log(typeof i18n.changeLanguage);
+        setLanguage(lang);
+        i18n.changeLanguage(lang);
+        localStorage.setItem("language", lang);
+        setLanguageDropdown(false);
+    };
     return (
         <header className="relative">
             <nav
                 className={
                     window.location.pathname === "/" ||
-                    window.location.pathname === `/hotel/${hotelId}`
+                        window.location.pathname === `/hotel/${hotelId}`
                         ? "bg-gray-900 flex justify-between items-center p-5 xl:px-24 text-gray-100 absolute top-0 w-full"
                         : "bg-gray-900 flex justify-between items-center p-5 xl:px-24 text-gray-100 w-full"
                 }
@@ -100,9 +116,8 @@ function Header({ hotelId }) {
                             >
                                 <span className="pb-2 pl-24">
                                     <i
-                                        className={`fas fa-caret-down fa-lg fa-2x cursor-pointer ${
-                                            firstLogin && "animate-bounce"
-                                        }`}
+                                        className={`fas fa-caret-down fa-lg fa-2x cursor-pointer ${firstLogin && "animate-bounce"
+                                            }`}
                                     ></i>
                                 </span>
                                 <br />
@@ -214,6 +229,86 @@ function Header({ hotelId }) {
                             )}
                         </>
                     )}
+                    <li className="relative mr-6">
+                        <button
+                            onClick={() => setLanguageDropdown(!languageDropdown)}
+                            className="flex items-center gap-2 hover:text-yellow-500"
+                        >
+                            <ReactCountryFlag
+                                countryCode={
+                                    language === "vi"
+                                        ? "VN"
+                                        : language === "zh"
+                                            ? "CN"
+                                            : language === "ko"
+                                                ? "KR"
+                                                : "GB"
+                                }
+                                svg
+                                style={{
+                                    width: "24px",
+                                    height: "24px"
+                                }}
+                            />
+
+                            <i className="fas fa-chevron-down text-xs"></i>
+                        </button>
+
+                        {languageDropdown && (
+                            <div
+                                className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden text-gray-800"
+                                onMouseLeave={() => setLanguageDropdown(false)}
+                            >
+                                <button
+                                    onClick={() => changeLanguage("en")}
+                                    className="flex items-center w-full px-4 py-3 hover:bg-gray-100 whitespace-nowrap"
+                                >
+                                    <ReactCountryFlag
+                                        countryCode="GB"
+                                        svg
+                                        style={{ width: "22px", height: "22px" }}
+                                    />
+                                    <span className="ml-3">English</span>
+                                </button>
+
+                                {/* <button
+                                    onClick={() => changeLanguage("vi")}
+                                    className="flex items-center w-full px-4 py-3 hover:bg-gray-100 whitespace-nowrap"
+                                >
+                                    <ReactCountryFlag
+                                        countryCode="VN"
+                                        svg
+                                        style={{ width: "22px", height: "22px" }}
+                                    />
+                                    <span className="ml-3">Tiếng Việt</span>
+                                </button> */}
+
+                                <button
+                                    onClick={() => changeLanguage("zh")}
+                                    className="flex items-center w-full px-4 py-3 hover:bg-gray-100 whitespace-nowrap"
+                                >
+                                    <ReactCountryFlag
+                                        countryCode="CN"
+                                        svg
+                                        style={{ width: "22px", height: "22px" }}
+                                    />
+                                    <span className="ml-3">中文</span>
+                                </button>
+
+                                <button
+                                    onClick={() => changeLanguage("ko")}
+                                    className="flex items-center w-full px-4 py-3 hover:bg-gray-100 whitespace-nowrap"
+                                >
+                                    <ReactCountryFlag
+                                        countryCode="KR"
+                                        svg
+                                        style={{ width: "22px", height: "22px" }}
+                                    />
+                                    <span className="ml-3">한국어</span>
+                                </button>
+                            </div>
+                        )}
+                    </li>
                 </ul>
             </nav>
         </header>

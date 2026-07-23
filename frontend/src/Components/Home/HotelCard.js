@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function HotelCard({ hotel: { id, name, min_price, star, image } }) {
+    const { t } = useTranslation();
     return (
         <>
             <div
@@ -37,7 +39,7 @@ function HotelCard({ hotel: { id, name, min_price, star, image } }) {
                                     </div>
                                 </div>
                                 <div className="text-gray-100 font-semibold">
-                                    Starting From {new Intl.NumberFormat("vi-VN").format(min_price)} VND
+                                    {t("starting_from")} {new Intl.NumberFormat("vi-VN").format(min_price)} VND
                                 </div>
                             </div>
                         </div>

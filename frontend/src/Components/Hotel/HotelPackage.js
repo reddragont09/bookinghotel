@@ -32,7 +32,8 @@ function HotelPackage({ hotel }) {
                         "Complimentary use of the swimming pool",
                         "Late check-out, subject to availability"
                     ],
-                    price: "USD 2,500 / 2 Guests",
+                    //price: "USD 2,500 / 2 Guests",
+                    price: "65.788.750 VND / 2 Guests",
                     cta: "BOOK YOUR RELAXING STAY",
                 },
                 {
@@ -50,7 +51,8 @@ function HotelPackage({ hotel }) {
                         "One dinner for 2 guests",
                         "Late check-out, subject to availability"
                     ],
-                    price: "USD 2,700 / 2 Guests",
+                    //price: "USD 2,700 / 2 Guests",
+                    price: "71.051.850 VND / 2 Guests",
                     cta: "BOOK YOUR EASY STAY",
                 },
                 {
@@ -70,7 +72,8 @@ function HotelPackage({ hotel }) {
                         "Complimentary laundry service, subject to package allowance",
                         "Late check-out, subject to availability"
                     ],
-                    price: "USD 3,500 / 2 Guests",
+                    //price: "USD 3,500 / 2 Guests",
+                    price: "92.104.250 VND / 2 Guests",
                     cta: "BOOK THE COMPLETE EXPERIENCE",
                 },
                 {
@@ -89,7 +92,8 @@ function HotelPackage({ hotel }) {
                         "Complimentary laundry service, subject to package allowance",
                         "Late check-out, subject to availability"
                     ],
-                    price: "USD 3,500 / 2 Guests",
+                    //price: "USD 3,500 / 2 Guests",
+                    price: "92.104.250 VND / 2 Guests",
                     cta: "SLOW DOWN IN HOI AN",
                 }
             ]
@@ -119,7 +123,8 @@ function HotelPackage({ hotel }) {
                         "Two complimentary signature drinks",
                         "Late check-out, subject to availability"
                     ],
-                    price: "USD 2,600 / 2 Guests",
+                    //price: "USD 2,600 / 2 Guests",
+                    price: "68.420.300 VND / 2 Guests",
                     cta: "BOOK YOUR ROMANTIC ESCAPE",
                 },
                 {
@@ -140,7 +145,8 @@ function HotelPackage({ hotel }) {
                         "One 60-minute relaxing massage per guest",
                         "Late check-out, subject to availability"
                     ],
-                    price: "USD 2,900 / 2 Guests",
+                    //price: "USD 2,900 / 2 Guests",
+                    price: "76.314.950 VND / 2 Guests",
                     cta: "CELEBRATE YOUR HONEYMOON",
                 },
                 {
@@ -161,7 +167,8 @@ function HotelPackage({ hotel }) {
                         "Complimentary photo session within the hotel premises",
                         "Late check-out, subject to availability"
                     ],
-                    price: "USD 2,500 / 2 Guests",
+                    //price: "USD 2,500 / 2 Guests",
+                    price: "65.788.750 VND / 2 Guests",
                     cta: "CELEBRATE WITH US",
                 }
             ]
@@ -190,7 +197,8 @@ function HotelPackage({ hotel }) {
                         "Welcome drinks for children",
                         "Late check-out, subject to availability"
                     ],
-                    price: "USD 2,500 / 2 Guests",
+                    //price: "USD 2,500 / 2 Guests",
+                    price: "65.788.750 VND / 2 Guests",
                     cta: "CELEBRATE WITH US",
                 }
             ]
@@ -219,7 +227,8 @@ function HotelPackage({ hotel }) {
                         "Exclusive beverage privileges at the hotel's café and restaurant",
                         "Late check-out, subject to availability"
                     ],
-                    price: "USD 5,000 / 7 Nights",
+                    //price: "USD 5,000 / 7 Nights",
+                    price: "131.577.500 VND / 2 Guests",
                     cta: "WORK & STAY IN HOI AN",
                 }
             ]
@@ -251,7 +260,8 @@ function HotelPackage({ hotel }) {
                         "Special room decoration upon request",
                         "Late check-out, subject to availability"
                     ],
-                    price: "USD 6,000 / 2 Guests",
+                    //price: "USD 6,000 / 2 Guests",
+                    price: "157.893.000 VND / 2 Guests",
                     cta: "EXPERIENCE CGP SIGNATURE",
                 }
             ]
@@ -282,7 +292,8 @@ function HotelPackage({ hotel }) {
                         "Complimentary use of the swimming pool",
                         "Late check-out, subject to availability"
                     ],
-                    price: "USD 2,000 / 1 Guest / 3 Nights",
+                    //price: "USD 2,000 / 1 Guest / 3 Nights",
+                    price: "52.631.000 VMD / 1 Guest / 3 Nights",
                     cta: "BOOK YOUR SOLO ESCAPE",
                 },
                 {
@@ -303,7 +314,8 @@ function HotelPackage({ hotel }) {
                         "Complimentary laundry service, subject to package allowance",
                         "Late check-out, subject to availability"
                     ],
-                    price: "USD 3,500 / 1 Guest / 5 Nights",
+                    //price: "USD 3,500 / 1 Guest / 5 Nights",
+                    price: "92.104.250 VND / 1 Guest / 5 Nights",
                     cta: "BOOK YOUR SOLO RETREAT",
                 },
                 {
@@ -326,7 +338,8 @@ function HotelPackage({ hotel }) {
                         "Complimentary laundry service, subject to package allowance",
                         "Late check-out, subject to availability"
                     ],
-                    price: "USD 5,000 / 1 Guest / 7 Nights",
+                    //price: "USD 5,000 / 1 Guest / 7 Nights",
+                    price: "131.577.500 VND / 1 Guest / 7 Nights",
                     cta: "EXPERIENCE YOUR SOLO JOURNEY",
                 }
             ]

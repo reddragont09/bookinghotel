@@ -1,0 +1,22 @@
+{
+    "hotel_intro": "Hotel Intro",
+    "rooms": "Rooms",
+    "stay_packages": "Stay Packages",
+    "tours": "Tours",
+    "hotel_map": "Hotel Map",
+    "relax_stay": "RELAX & STAY",
+    "romance_celebraation": "ROMANCE & CELEBRATION",
+    "family": "FAMILY",
+    "long_stay": "LONG STAY",
+    "signature_collection": "SIGNATURE COLLECTION",
+    "solo_traveller_collection": "SOLO TRAVELLER COLLECTION",
+    "currency": "$",
+    "features": "Features",
+    "book": "Booking now",
+    "guest_name": "Guest Nmae",
+    "email": "Email",
+    "phone_number": "Phone Number",
+    "checkin": "Check-in",
+    "checkout": "Check-out",
+    "starting_from": "Starting From"
+}

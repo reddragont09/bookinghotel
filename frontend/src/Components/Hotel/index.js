@@ -21,6 +21,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import useSecureLs from "../Global/useSecureLs";
+import { useTranslation } from "react-i18next";
 
 function Hotel(props) {
     const dispatch = useDispatch();
@@ -30,6 +31,8 @@ function Hotel(props) {
     const [userId, setUserId] = useState(_user_id);
 
     const [activeTab, setActiveTab] = useState("intro");
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         getHotel(dispatch, id);
@@ -73,7 +76,7 @@ function Hotel(props) {
                             }`}
                         onClick={() => setActiveTab("intro")}
                     >
-                        Hotel Intro
+                        {t("hotel_intro")}
                     </button>
 
                     <button
@@ -84,7 +87,7 @@ function Hotel(props) {
                             }`}
                         onClick={() => setActiveTab("rooms")}
                     >
-                        Rooms
+                        {t("rooms")}
                     </button>
                     <button
                         className={`px-6 py-3 rounded-lg font-medium transition-all duration-200
@@ -94,9 +97,9 @@ function Hotel(props) {
                             }`}
                         onClick={() => setActiveTab("packages")}
                     >
-                        Stay Packages
+                        {t("stay_packages")}
                     </button>
-                    <button
+                    {/* <button
                         className={`px-6 py-3 rounded-lg font-medium transition-all duration-200
                 ${activeTab === "tours"
                                 ? "bg-blue-500 text-white shadow-md"
@@ -104,8 +107,8 @@ function Hotel(props) {
                             }`}
                         onClick={() => setActiveTab("tours")}
                     >
-                        Tours
-                    </button>
+                        {t("tours")}
+                    </button> */}
                     <button
                         className={`px-6 py-3 rounded-lg font-medium transition-all duration-200
                 ${activeTab === "map"
@@ -114,7 +117,7 @@ function Hotel(props) {
                             }`}
                         onClick={() => setActiveTab("map")}
                     >
-                        Hotel map
+                        {t("hotel_map")}
                     </button>
                 </div>
             </div>
@@ -132,7 +135,7 @@ function Hotel(props) {
                 <>
                     {state.hotels.hotel && (
                         <TitleSection
-                            title={`${state.hotels.hotel.name}'s Rooms`}
+                            title={`${state.hotels.hotel.name}'s ${t("rooms")}`}
                             star={state.hotels.hotel.star}
                         />
                     )}
@@ -145,7 +148,7 @@ function Hotel(props) {
                 <>
                     {state.hotels.hotel && (
                         <TitleSection
-                            title={`${state.hotels.hotel.name}'s Combo & Tours`}
+                            title={`${state.hotels.hotel.name}'s ${t("tours")}`}
                             star={state.hotels.hotel.star}
                         />
                     )}
@@ -158,7 +161,7 @@ function Hotel(props) {
                 <>
                     {state.hotels.hotel && (
                         <TitleSection
-                            title={`${state.hotels.hotel.name}'s Stay Packages`}
+                            title={`${state.hotels.hotel.name}'s ${t("stay_packages")}`}
                             star={state.hotels.hotel.star}
                         />
                     )}

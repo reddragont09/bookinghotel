@@ -1,6 +1,8 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 function HotelHero({ hotel }) {
+    const { t } = useTranslation();
     let _star = [];
     if (hotel) {
         for (let i = 0; i < hotel.star; i++) {
@@ -45,7 +47,7 @@ function HotelHero({ hotel }) {
                         </span>
                     </div>
                     <div className="text-gray-100 mt-2 md:mt-0">
-                        Starting From{" "}
+                        {t("starting_from")}{" "}
                         <span className="text-3xl text-orange-300">
                             {hotel && new Intl.NumberFormat("vi-VN").format(hotel.min_price)} VND
                         </span>
