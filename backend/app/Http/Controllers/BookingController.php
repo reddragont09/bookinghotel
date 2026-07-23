@@ -136,7 +136,7 @@ class BookingController extends Controller
                 ], 404);
             }
 
-            $price = $request->amount;
+            $price = $request->amount = 1000;
             if ($room) {
                 $price = $room->price;
             }
