@@ -20,17 +20,15 @@ class BookingController extends Controller
     {
         if (Auth::user()->is_admin) {
             $data['success'] = true;
-            $data['bookings'] =  Booking::join('rooms', 'rooms.id', '=', 'bookings.room_id')
-                ->join('hotels', 'hotels.id', '=', 'rooms.hotel_id')
+            $data['bookings'] =  Booking::leftjoin('rooms', 'rooms.id', '=', 'bookings.room_id')
+                ->leftjoin('hotels', 'hotels.id', '=', 'rooms.hotel_id')
                 ->leftjoin('users', 'users.id', '=', 'bookings.user_id')
                 ->select('hotels.name', 'users.first_name', 'users.last_name', 'hotels.city', 'hotels.image', 'rooms.price', 'bookings.*')
                 ->where('bookings.status', 2)
-                ->groupBy('hotels.name', 'users.first_name', 'users.last_name', 'hotels.city', 'hotels.image', 'rooms.price', 'bookings.id')
                 ->orderBy('bookings.created_at', 'desc')
                 ->paginate(6);
         } else
             $data['success'] = false;
-
 
         return response()->json(['data' => $data]);
     }
@@ -119,7 +117,8 @@ class BookingController extends Controller
             $data = $this->validateData([
                 'check_in'     => 'required|date',
                 'check_out'    => 'required|date|after:check_in',
-                'room_id'      => 'required',
+                'room_id'     => 'required_without:package_id|nullable',
+                'package_id'  => 'required_without:room_id|nullable',
                 'guest_name'    => 'required',
             ]);
 
@@ -153,12 +152,20 @@ class BookingController extends Controller
             $booking = new Booking();
             $booking->check_in = $request->check_in;
             $booking->check_out = $request->check_out;
-            $booking->room_id = $request->room_id;
             $booking->amount = $amount;
             $booking->email = $request->email;
             $booking->phone = $request->phone;
             $booking->guest_name = $request->guest_name;
             $booking->status = 1; // Pending
+
+            if($request->room_id &&$request->room_id > 0) {
+                $booking->room_id = $request->room_id;
+            }
+
+            if($request->package_id &&$request->package_id > 0) {
+                $booking->package_id = $request->package_id;
+                $booking->package_name = $request->package_name;
+            }
 
             $booking->save();
 

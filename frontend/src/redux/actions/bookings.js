@@ -64,6 +64,8 @@ export const addBooking = async (dispatch, booking, token) => {
             check_out: booking.check_out,
             user_id: booking.user_id,
             room_id: booking.room_id,
+            package_id: booking.package_id,
+            package_name: booking.package_name,
             amount: booking.amount
         },
         {

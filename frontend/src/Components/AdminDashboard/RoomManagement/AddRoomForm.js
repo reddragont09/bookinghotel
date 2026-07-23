@@ -13,11 +13,16 @@ function AddRoomForm() {
 
     const [room, setRoom] = useState({
         name: "",
-        description: "",
+        description_vi: "",
+        description_zh: "",
+        description_ko: "",
         price: "",
         guest: "",
         hotel_id: "",
-        features: []
+        features: [],
+        vifeatures: [],
+        zhfeatures: [],
+        kofeatures: []
     });
 
     const [image, setImage] = useState("");
@@ -64,6 +69,58 @@ function AddRoomForm() {
                     highlightFirst: true
                 }
             });
+
+        var input = document.querySelector(".vifeatures"), // eslint-disable-next-line
+            tagify = new Tagify(input, {
+                whitelist: [
+                    "MASTER BEDROOMS",
+                    "POOL & SPA",
+                    "WIFI COVERAGE",
+                    "HOT TUB"
+                ],
+                dropdown: {
+                    classname: "color-blue",
+                    enabled: 0, // show the dropdown immediately on focus
+                    maxItems: 5,
+                    position: "text", // place the dropdown near the typed text
+                    closeOnSelect: false, // keep the dropdown open after selecting a suggestion
+                    highlightFirst: true
+                }
+            });
+        var input = document.querySelector(".zhfeatures"), // eslint-disable-next-line
+            tagify = new Tagify(input, {
+                whitelist: [
+                    "MASTER BEDROOMS",
+                    "POOL & SPA",
+                    "WIFI COVERAGE",
+                    "HOT TUB"
+                ],
+                dropdown: {
+                    classname: "color-blue",
+                    enabled: 0, // show the dropdown immediately on focus
+                    maxItems: 5,
+                    position: "text", // place the dropdown near the typed text
+                    closeOnSelect: false, // keep the dropdown open after selecting a suggestion
+                    highlightFirst: true
+                }
+            });
+        var input = document.querySelector(".kofeatures"), // eslint-disable-next-line
+            tagify = new Tagify(input, {
+                whitelist: [
+                    "MASTER BEDROOMS",
+                    "POOL & SPA",
+                    "WIFI COVERAGE",
+                    "HOT TUB"
+                ],
+                dropdown: {
+                    classname: "color-blue",
+                    enabled: 0, // show the dropdown immediately on focus
+                    maxItems: 5,
+                    position: "text", // place the dropdown near the typed text
+                    closeOnSelect: false, // keep the dropdown open after selecting a suggestion
+                    highlightFirst: true
+                }
+            });
     }, []); // eslint-disable-line
 
     const onSubmitHandler = (e) => {
@@ -72,10 +129,16 @@ function AddRoomForm() {
         const formData = new FormData();
         formData.append("name", room.name);
         formData.append("description", room.description);
+        formData.append("description_vi", room.description_vi);
+        formData.append("description_zh", room.description_zh);
+        formData.append("description_ko", room.description_ko);
         formData.append("price", room.price);
         formData.append("guest", room.guest);
         formData.append("hotel_id", room.hotel_id);
         formData.append("features", JSON.stringify(room.features));
+        formData.append("features_vi", JSON.stringify(room.vifeatures));
+        formData.append("features_zh", JSON.stringify(room.zhfeatures));
+        formData.append("features_ko", JSON.stringify(room.kofeatures));
         for (const key of Object.keys(image)) {
             image && formData.append(`image[${key}]`, image[key]);
         }
@@ -117,8 +180,8 @@ function AddRoomForm() {
                         <span>
                             {image
                                 ? Object.keys(image).map(function (key) {
-                                      return image[key].name + ", ";
-                                  })
+                                    return image[key].name + ", ";
+                                })
                                 : "Upload"}
                         </span>
                     </label>
@@ -143,6 +206,39 @@ function AddRoomForm() {
                     value={room.description}
                     onChange={(e) =>
                         setRoom({ ...room, description: e.target.value })
+                    }
+                ></textarea>
+
+                <label htmlFor="description" className="block mt-5">
+                    Room Description VN:{" "}
+                </label>
+                <textarea
+                    className="p-2 w-full xl:w-1/2 border border-gray-400 focus:outline-none focus:border-black"
+                    value={room.description_vi ?? ""}
+                    onChange={(e) =>
+                        setRoom({ ...room, description_vi: e.target.value })
+                    }
+                ></textarea>
+
+                <label htmlFor="description" className="block mt-5">
+                    Room Description ZH:{" "}
+                </label>
+                <textarea
+                    className="p-2 w-full xl:w-1/2 border border-gray-400 focus:outline-none focus:border-black"
+                    value={room.description_zh ?? ""}
+                    onChange={(e) =>
+                        setRoom({ ...room, description_zh: e.target.value })
+                    }
+                ></textarea>
+
+                <label htmlFor="description" className="block mt-5">
+                    Room Description KO:{" "}
+                </label>
+                <textarea
+                    className="p-2 w-full xl:w-1/2 border border-gray-400 focus:outline-none focus:border-black"
+                    value={room.description_ko ?? ""}
+                    onChange={(e) =>
+                        setRoom({ ...room, description_ko: e.target.value })
                     }
                 ></textarea>
 
@@ -210,6 +306,55 @@ function AddRoomForm() {
                         });
                     }}
                 />
+
+                <label className="block mt-5">Features VN: </label>
+                <input
+                    type="text"
+                    name="vifeatures"
+                    className="vifeatures p-2 bg-white w-full xl:w-1/2  border border-gray-400 focus:outline-none
+                    focus:border-black"
+                    onChange={(e) => {
+                        setRoom({
+                            ...room,
+                            vifeatures: JSON.parse(e.target.value).map(
+                                (feature) => feature.value
+                            )
+                        });
+                    }}
+                />
+
+                <label className="block mt-5">Features ZH: </label>
+                <input
+                    type="text"
+                    name="zhfeatures"
+                    className="zhfeatures p-2 bg-white w-full xl:w-1/2  border border-gray-400 focus:outline-none
+                    focus:border-black"
+                    onChange={(e) => {
+                        setRoom({
+                            ...room,
+                            zhfeatures: JSON.parse(e.target.value).map(
+                                (feature) => feature.value
+                            )
+                        });
+                    }}
+                />
+
+                <label className="block mt-5">Features KO: </label>
+                <input
+                    type="text"
+                    name="kofeatures"
+                    className="kofeatures p-2 bg-white w-full xl:w-1/2  border border-gray-400 focus:outline-none
+                    focus:border-black"
+                    onChange={(e) => {
+                        setRoom({
+                            ...room,
+                            kofeatures: JSON.parse(e.target.value).map(
+                                (feature) => feature.value
+                            )
+                        });
+                    }}
+                />
+
                 <button
                     className="text-center bg-yellow-600 text-white hover:bg-yellow-700 uppercase text-sm px-6 py-2 shadow
                     hover:shadow-lg block mt-5"

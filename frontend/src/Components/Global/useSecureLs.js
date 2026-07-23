@@ -7,16 +7,22 @@ const ls = new SecureLS({
 });
 
 function useSecureLs(key, initValue = null) {
-    const [value, setValue] = useState(() => {
+    const [value, setValueState] = useState(() => {
         const data = ls.get(key);
         return data !== null ? data : initValue;
     });
 
-    useEffect(() => {
-        ls.set(key, value);
-    }, [key, value]);
+    const setValue = (newValue) => {
+        ls.set(key, newValue);      // lưu ngay lập tức
+        setValueState(newValue);    // cập nhật state
+    };
 
-    return [value, setValue];
+    const removeValue = () => {
+        ls.remove(key);
+        //setValueState(initValue);
+    };
+
+    return [value, setValue, removeValue];
 }
 
 export default useSecureLs;

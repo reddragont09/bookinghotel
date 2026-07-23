@@ -21,6 +21,9 @@ function AddHotelForm() {
     });
     const [image, setImage] = useState(null);
     const [catalog, setCatalog] = useState(null);
+    const [catalogVN, setCatalogVN] = useState(null);
+    const [catalogZH, setCatalogZH] = useState(null);
+    const [catalogKO, setCatalogKO] = useState(null);
 
     const onSubmitHandler = (e) => {
         e.preventDefault();
@@ -33,6 +36,9 @@ function AddHotelForm() {
         formData.append("y_coordinate", hotel.y_coordinate);
         image && formData.append("image", image);
         catalog && formData.append("description", catalog);
+        catalogVN && formData.append("description_vn", catalogVN);
+        catalogZH && formData.append("description_zh", catalogZH);
+        catalogKO && formData.append("description_ko", catalogKO);
 
         addHotel(dispatch, formData, state.auth.token);
     };
@@ -128,6 +134,87 @@ function AddHotelForm() {
                     <i className="fas fa-camera mr-2"></i>
                     <span>{catalog ? catalog.name : "Upload"}</span>
                     <span>{catalog ? catalog.name : "Upload"}</span>
+                </label>
+
+                <label htmlFor="star" className="block mt-5">
+                    Hotel Catalog VN:{" "}
+                </label>
+                <input
+                    type="text"
+                    name="address"
+                    className="p-2 w-full xl:w-1/2 border border-gray-400 focus:outline-none focus:border-black"
+                    value={hotel.description_vn}
+                    onChange={(e) =>
+                        setHotel({ ...hotel, description_vn: e.target.value })
+                    }
+                />
+
+                <label className="ml-5 px-5 py-2 text-gray-200 bg-orange-500 hover:bg-orange-900 rounded-sm cursor-pointer">
+                    <input
+                        type="file"
+                        id="test"
+                        className="hidden"
+                        onChange={(e) => {
+                            setCatalogVN(e.target.files[0]);
+                        }}
+                    />
+                    <i className="fas fa-camera mr-2"></i>
+                    <span>{catalogVN ? catalogVN.name : "Upload"}</span>
+                    <span>{catalogVN ? catalogVN.name : "Upload"}</span>
+                </label>
+
+                <label htmlFor="star" className="block mt-5">
+                    Hotel Catalog ZH:{" "}
+                </label>
+                <input
+                    type="text"
+                    name="address"
+                    className="p-2 w-full xl:w-1/2 border border-gray-400 focus:outline-none focus:border-black"
+                    value={hotel.description_zh}
+                    onChange={(e) =>
+                        setHotel({ ...hotel, description_zh: e.target.value })
+                    }
+                />
+
+                <label className="ml-5 px-5 py-2 text-gray-200 bg-orange-500 hover:bg-orange-900 rounded-sm cursor-pointer">
+                    <input
+                        type="file"
+                        id="test"
+                        className="hidden"
+                        onChange={(e) => {
+                            setCatalogZH(e.target.files[0]);
+                        }}
+                    />
+                    <i className="fas fa-camera mr-2"></i>
+                    <span>{catalogZH ? catalogZH.name : "Upload"}</span>
+                    <span>{catalogZH ? catalogZH.name : "Upload"}</span>
+                </label>
+
+                <label htmlFor="star" className="block mt-5">
+                    Hotel Catalog KO:{" "}
+                </label>
+                <input
+                    type="text"
+                    name="address"
+                    className="p-2 w-full xl:w-1/2 border border-gray-400 focus:outline-none focus:border-black"
+                    value={hotel.description_ko}
+                    onChange={(e) =>
+                        setHotel({ ...hotel, description_ko: e.target.value })
+                    }
+                />
+
+                <label className="ml-5 px-5 py-2 text-gray-200 bg-orange-500 hover:bg-orange-900 rounded-sm cursor-pointer">
+                    <input
+                        type="file"
+                        id="test"
+                        className="hidden"
+                        onChange={(e) => {
+                            setCatalogKO(e.target.files[0]);
+                        }}
+                    />
+                    <i className="fas fa-camera mr-2"></i>
+                    <span>{catalogKO ? catalogKO.name : "Upload"}</span>
+                    <span>{catalogKO ? catalogKO.name : "Upload"}</span>
                 </label>
 
                 <label htmlFor="star" className="block mt-5">

@@ -4,31 +4,127 @@ import { useTranslation } from "react-i18next";
 
 function BookingDetails({ booking, setBooking, submitted }) {
     const { t } = useTranslation();
+
     const [price, setPrice] = useState(0);
-    const [room_id] = useSecureLs("room_id");
-    const [room_name] = useSecureLs("room_name");
-    const [room_price] = useSecureLs("room_price");
+
+    const [room_name, rRoomName] = useSecureLs("room_name");
+    const [room_id, , rRoomId] = useSecureLs("room_id");
+    const [room_price, , rRoomPrice] = useSecureLs("room_price");
+
+    const [package_id, , rPackageId] = useSecureLs("package_id");
+    const [package_price, , rPackagePrice] = useSecureLs("package_price");
+    const [package_day, , rPackageDay] = useSecureLs("package_day");
+    const [package_name, , rPackageName] = useSecureLs("package_name");
+
     const [room_image] = useSecureLs("room_image");
+
     const today = new Date().toISOString().split("T")[0];
+
     const room = {
         room_id,
-        name: room_name,
+        name: package_name.length > 0 ? package_name : room_name,
         price: room_price,
-        image: room_image
+        image: room_image,
     };
 
-    const calcPrice = () => {
-        if (booking.check_in !== "" && booking.check_out !== "") {
-            const oneDay = 24 * 60 * 60 * 1000;
-            const check_out = new Date(booking.check_out);
-            const check_in = new Date(booking.check_in);
-            const diffDays = Math.floor((check_out - check_in) / oneDay);
+    useEffect(() => {
+        rRoomId();
+        rRoomPrice();
+        rPackageId();
+        rPackagePrice();
+        rPackageDay();
+        rPackageName();
+    }, []);
 
-            if (diffDays > 0) {
-                setPrice(parseFloat(room.price) * diffDays);
-            }
+    useEffect(() => {
+        if (!package_id || Number(package_day) <= 0) {
+            return;
         }
-    };
+
+        const amount = parseFloat(package_price || 0);
+
+        setPrice(amount);
+
+        const checkIn = booking.check_in
+            ? new Date(booking.check_in)
+            : new Date();
+
+        const checkOut = new Date(checkIn);
+        checkOut.setDate(checkOut.getDate() + Number(package_day));
+
+        const checkInStr = checkIn.toISOString().split("T")[0];
+        const checkOutStr = checkOut.toISOString().split("T")[0];
+
+        setBooking((prev) => ({
+            ...prev,
+            room_id: null,
+            package_id,
+            package_name,
+            amount,
+            check_in: checkInStr,
+            check_out: checkOutStr,
+        }));
+    }, [
+        package_id,
+        package_price,
+        package_day,
+        booking.check_in,
+        setBooking,
+    ]);
+
+    useEffect(() => {
+        if (package_id && Number(package_day) > 0) {
+            return;
+        }
+
+        if (
+            !booking.check_in ||
+            !booking.check_out ||
+            !room.price
+        ) {
+            setPrice(0);
+
+            setBooking((prev) => ({
+                ...prev,
+                room_id,
+                package_id: null,
+                amount: 0,
+            }));
+
+            return;
+        }
+
+        const oneDay = 24 * 60 * 60 * 1000;
+
+        const checkIn = new Date(booking.check_in);
+        const checkOut = new Date(booking.check_out);
+
+        const diffDays = Math.floor(
+            (checkOut - checkIn) / oneDay
+        );
+
+        const amount =
+            diffDays > 0
+                ? parseFloat(room.price) * diffDays
+                : 0;
+
+        setPrice(amount);
+
+        setBooking((prev) => ({
+            ...prev,
+            room_id,
+            package_id: null,
+            amount,
+        }));
+    }, [
+        booking.check_in,
+        booking.check_out,
+        room.price,
+        room_id,
+        package_id,
+        package_day,
+        setBooking,
+    ]);
 
     const inputClass = (value) =>
         `mt-2 md:mt-0 px-6 py-3 w-full md:w-3/4 border rounded ${submitted && !value
@@ -36,13 +132,6 @@ function BookingDetails({ booking, setBooking, submitted }) {
             : "border-gray-300"
         }`;
 
-    useEffect(() => {
-        calcPrice();
-        setBooking({
-            ...booking,
-            amount: price
-        });
-    }, [booking.check_in, booking.check_out, price]); // eslint-disable-line
     return (
         <>
             <div className="p-5 ">
@@ -141,16 +230,14 @@ function BookingDetails({ booking, setBooking, submitted }) {
                                     value={booking.check_in}
                                     onChange={(e) => {
                                         const checkIn = e.target.value;
-                                        calcPrice();
-                                        setBooking({
-                                            ...booking,
+                                        setBooking((prev) => ({
+                                            ...prev,
                                             check_in: checkIn,
                                             check_out:
-                                                booking.check_out && booking.check_out <= checkIn
+                                                prev.check_out && prev.check_out <= checkIn
                                                     ? ""
-                                                    : booking.check_out,
-                                            amount: price
-                                        });
+                                                    : prev.check_out,
+                                        }));
                                     }}
                                 />
                             </div>
@@ -167,13 +254,13 @@ function BookingDetails({ booking, setBooking, submitted }) {
                                     type="date"
                                     min={booking.check_in || today}
                                     value={booking.check_out}
+                                    readOnly={Number(package_day) > 0}
                                     onChange={(e) => {
-                                        calcPrice();
-                                        setBooking({
-                                            ...booking,
-                                            check_out: e.target.value,
-                                            amount: price
-                                        });
+                                        const checkOut = e.target.value;
+                                        setBooking((prev) => ({
+                                            ...prev,
+                                            check_out: checkOut,
+                                        }));
                                     }}
                                 />
                             </div>

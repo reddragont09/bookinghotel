@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnToBookingsTable extends Migration
+
+class UpdateImgColumnToRoomsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +14,11 @@ class AddColumnToBookingsTable extends Migration
      */
     public function up()
     {
-        Schema::table('bookings', function (Blueprint $table) {
-            $table->string('phone');
-            $table->string('email');
+        Schema::table('rooms', function (Blueprint $table) {
+            $table->dropColumn('image');
+        });
+        Schema::table('rooms', function (Blueprint $table) {
+            $table->longText('image')->nullable()->default(null);
         });
     }
 
@@ -26,9 +29,7 @@ class AddColumnToBookingsTable extends Migration
      */
     public function down()
     {
-        Schema::table('bookings', function (Blueprint $table) {
-            $table->dropColumn('email');
-            $table->dropColumn('phone');
+        Schema::table('rooms', function (Blueprint $table) {
         });
     }
 }

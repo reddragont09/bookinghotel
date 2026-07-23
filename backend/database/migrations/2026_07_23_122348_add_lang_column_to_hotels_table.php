@@ -14,13 +14,11 @@ class AddLangColumnToHotelsTable extends Migration
     public function up()
     {
         Schema::table('hotels', function (Blueprint $table) {
-            $table->longText('description_cn')->nullable();
+            $table->longText('description_vi')->nullable();
+            $table->longText('description_zh')->nullable();
             $table->longText('description_ko')->nullable();
         });
-        Schema::table('hotels', function (Blueprint $table) {
-            $table->dropColumn('description_cn');
-            $table->dropColumn('description_ko');
-        });
+
     }
 
     /**
@@ -30,7 +28,10 @@ class AddLangColumnToHotelsTable extends Migration
      */
     public function down()
     {
-        Schema::table('bookings', function (Blueprint $table) {
+        Schema::table('hotels', function (Blueprint $table) {
+            $table->dropColumn('description_vi');
+            $table->dropColumn('description_zh');
+            $table->dropColumn('description_ko');
         });
     }
 }

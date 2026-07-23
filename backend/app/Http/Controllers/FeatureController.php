@@ -23,6 +23,10 @@ class FeatureController extends Controller
                 $feature = new Feature;
                 $feature->name = $request['name'];
                 $feature->room_id = $request['room_id'];
+                $feature->language = $request['language'];
+                if(!$request['language']) {
+                    $feature->language = 'en';
+                }
                 $feature->save();
             } else
                 $data['success'] =  false;

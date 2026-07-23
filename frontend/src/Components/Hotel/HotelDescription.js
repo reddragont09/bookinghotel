@@ -43,8 +43,6 @@ function HotelDescription({ hotel }) {
 
     const pdfUrl = `${process.env.REACT_APP_BASE_URL}/api/hotel-pdf/${pdfName}`;
 
-    console.log(pdfUrl);
-
     function onDocumentLoadSuccess(pdf) {
         setNumPages(pdf.numPages);
     }

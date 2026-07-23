@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddLangColumnToFeaturesTable extends Migration
+class AddPhoneColumnToBookingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddLangColumnToFeaturesTable extends Migration
      */
     public function up()
     {
-        Schema::table('features', function (Blueprint $table) {
-            $table->string('language')->nullable();
+        Schema::table('bookings', function (Blueprint $table) {
+            $table->string('phone');
+            $table->string('email');
         });
     }
 
@@ -25,8 +26,9 @@ class AddLangColumnToFeaturesTable extends Migration
      */
     public function down()
     {
-        Schema::table('features', function (Blueprint $table) {
-            $table->dropColumn('language');
+        Schema::table('bookings', function (Blueprint $table) {
+            $table->dropColumn('email');
+            $table->dropColumn('phone');
         });
     }
 }

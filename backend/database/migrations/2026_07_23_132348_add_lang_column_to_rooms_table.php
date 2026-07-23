@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddLangColumnToHotelsTable extends Migration
+class AddLangColumnToRoomsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class AddLangColumnToHotelsTable extends Migration
      */
     public function up()
     {
-        Schema::table('hotels', function (Blueprint $table) {
-            $table->longText('description_cn')->nullable();
+        Schema::table('rooms', function (Blueprint $table) {
+            $table->longText('description_vi')->nullable();
+            $table->longText('description_zh')->nullable();
             $table->longText('description_ko')->nullable();
-        });
-        Schema::table('hotels', function (Blueprint $table) {
-            $table->dropColumn('description_cn');
-            $table->dropColumn('description_ko');
+            $table->double('price_vi')->nullable();
+            $table->double('price_zh')->nullable();
+            $table->double('price_ko')->nullable();
         });
     }
 
@@ -30,7 +30,13 @@ class AddLangColumnToHotelsTable extends Migration
      */
     public function down()
     {
-        Schema::table('bookings', function (Blueprint $table) {
+        Schema::table('rooms', function (Blueprint $table) {
+            $table->dropColumn('description_vi');
+            $table->dropColumn('description_zh');
+            $table->dropColumn('description_ko');
+            $table->dropColumn('price_vi');
+            $table->dropColumn('price_zh');
+            $table->dropColumn('price_ko');
         });
     }
 }

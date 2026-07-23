@@ -16,12 +16,18 @@ function EditRoomForm() {
     const [room, setRoom] = useState({
         name: "",
         description: "",
+        description_vi: "",
+        description_zh: "",
+        description_ko: "",
         price: "",
         guest: "",
         hotel_id: ""
     });
     const [image, setImage] = useState(null);
-    const [features, setFeatures] = useState([]);
+    const [features, setFeatures] = useState("[]");
+    const [viFeatures, setViFeatures] = useState("[]");
+    const [zhFeatures, setZhFeatures] = useState("[]");
+    const [koFeatures, setKoFeatures] = useState("[]");
     useEffect(() => {
         getRoom(dispatch, id);
         getAllHotels(dispatch, state.auth.token);
@@ -29,18 +35,47 @@ function EditRoomForm() {
 
     useEffect(() => {
         state.rooms.room && setRoom(state.rooms.room);
-        let _features =
-            state.rooms.room &&
-            state.rooms.room.features.map((e) => {
-                return e.name;
-            });
+        const _features =
+            state.rooms.room?.features
+                .filter(e => e.language === "" || e.language === "en" || e.language === null)
+                .map(e => e.name);
 
+        console.log(_features);
         state.rooms.room && setFeatures(_features);
+
+        let _vifeatures =
+            state.rooms.room?.features
+                .filter(e => e.language === "vi")
+                .map(e => e.name);
+
+        if (_vifeatures && _vifeatures.length > 0) {
+            state.rooms.room && setViFeatures(_vifeatures);
+        }
+
+        let _zhfeatures =
+            state.rooms.room?.features
+                .filter(e => e.language === "zh")
+                .map(e => e.name);
+
+        if (_zhfeatures && _zhfeatures.length > 0) {
+            state.rooms.room && setZhFeatures(_zhfeatures);
+        }
+
+
+        let _kofeatures =
+            state.rooms.room?.features
+                .filter(e => e.language === "ko")
+                .map(e => e.name);
+
+
+        if (_kofeatures && _kofeatures.length > 0) {
+            state.rooms.room && setKoFeatures(_kofeatures);
+        }
 
         try {
             let images = state.rooms.room && state.rooms.room.image.split(",");
             state.rooms.room && setImage(images[0]);
-        } catch (error) {}
+        } catch (error) { }
     }, [state.rooms.room]); // eslint-disable-line
 
     useEffect(() => {
@@ -57,16 +92,37 @@ function EditRoomForm() {
         let _features;
         _features = JSON.parse(features);
         _features = _features && _features.map((feature) => feature.value);
+
+        let _vifeatures;
+        console.log(viFeatures);
+        _vifeatures = JSON.parse(viFeatures);
+        _vifeatures = _vifeatures && _vifeatures.map((viFeature) => viFeature.value);
+
+        let _zhfeatures;
+        _zhfeatures = JSON.parse(zhFeatures);
+        _zhfeatures = _zhfeatures && _zhfeatures.map((feature) => feature.value);
+
+        let _kofeatures;
+        _kofeatures = JSON.parse(koFeatures);
+        _kofeatures = _kofeatures && _kofeatures.map((feature) => feature.value);
+
+
         const formData = new FormData();
         formData.append("_method", "PUT");
 
         formData.append("id", id);
         formData.append("name", room.name);
         formData.append("description", room.description);
+        formData.append("description_vi", room.description_vi);
+        formData.append("description_zh", room.description_zh);
+        formData.append("description_ko", room.description_ko);
         formData.append("price", room.price);
         formData.append("guest", room.guest);
         formData.append("hotel_id", room.hotel_id);
         formData.append("features", JSON.stringify(_features));
+        formData.append("features_vi", JSON.stringify(_vifeatures));
+        formData.append("features_zh", JSON.stringify(_zhfeatures));
+        formData.append("features_ko", JSON.stringify(_kofeatures));
         for (const key of Object.keys(image)) {
             image && formData.append(`image[${key}]`, image[key]);
         }
@@ -122,8 +178,8 @@ function EditRoomForm() {
                         <span>
                             {image && typeof image === "object"
                                 ? Object.keys(image).map(function (key, index) {
-                                      return image[key].name + ", ";
-                                  })
+                                    return image[key].name + ", ";
+                                })
                                 : "Upload"}
                         </span>
                     </label>
@@ -148,6 +204,38 @@ function EditRoomForm() {
                     value={room.description}
                     onChange={(e) =>
                         setRoom({ ...room, description: e.target.value })
+                    }
+                ></textarea>
+                <label htmlFor="description" className="block mt-5">
+                    Room Description VN:{" "}
+                </label>
+                <textarea
+                    className="p-2 w-full xl:w-1/2 border border-gray-400 focus:outline-none focus:border-black"
+                    value={room.description_vi ?? ""}
+                    onChange={(e) =>
+                        setRoom({ ...room, description_vi: e.target.value })
+                    }
+                ></textarea>
+
+                <label htmlFor="description" className="block mt-5">
+                    Room Description ZH:{" "}
+                </label>
+                <textarea
+                    className="p-2 w-full xl:w-1/2 border border-gray-400 focus:outline-none focus:border-black"
+                    value={room.description_zh ?? ""}
+                    onChange={(e) =>
+                        setRoom({ ...room, description_zh: e.target.value })
+                    }
+                ></textarea>
+
+                <label htmlFor="description" className="block mt-5">
+                    Room Description KO:{" "}
+                </label>
+                <textarea
+                    className="p-2 w-full xl:w-1/2 border border-gray-400 focus:outline-none focus:border-black"
+                    value={room.description_ko ?? ""}
+                    onChange={(e) =>
+                        setRoom({ ...room, description_ko: e.target.value })
                     }
                 ></textarea>
 
@@ -204,9 +292,42 @@ function EditRoomForm() {
                 <Tags
                     className="features p-2 bg-white w-full xl:w-1/2  border border-gray-400 focus:outline-none
                     focus:border-black"
-                    value={features}
+                    value={features ?? ""}
                     onChange={(e) => {
                         setFeatures(e.target.value);
+                    }}
+                />
+
+                <label className="block mt-5">Features VN: </label>
+
+                <Tags
+                    className="features p-2 bg-white w-full xl:w-1/2  border border-gray-400 focus:outline-none
+                    focus:border-black"
+                    value={viFeatures ?? ""}
+                    onChange={(e) => {
+                        setViFeatures(e.target.value);
+                    }}
+                />
+
+                <label className="block mt-5">Features ZH: </label>
+
+                <Tags
+                    className="features p-2 bg-white w-full xl:w-1/2  border border-gray-400 focus:outline-none
+                    focus:border-black"
+                    value={zhFeatures ?? ""}
+                    onChange={(e) => {
+                        setZhFeatures(e.target.value);
+                    }}
+                />
+
+                <label className="block mt-5">Features KO: </label>
+
+                <Tags
+                    className="features p-2 bg-white w-full xl:w-1/2  border border-gray-400 focus:outline-none
+                    focus:border-black"
+                    value={koFeatures ?? ""}
+                    onChange={(e) => {
+                        setKoFeatures(e.target.value);
                     }}
                 />
                 <button

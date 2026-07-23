@@ -81,6 +81,24 @@ class HotelController extends Controller
                     $request->file('description')->move(public_path("/img/hotels"), $fileNameDescription);
                 }
 
+                $fileNameDescriptionCn = null;
+                if ($request->file('description_zh')) {
+                    $fileNameDescriptionCn = "hotel_zh_" . time() . "." . $request->file('description_zh')->getClientOriginalExtension();
+                    $request->file('description_zh')->move(public_path("/img/hotels"), $fileNameDescription);
+                }
+
+                $fileNameDescriptionKo = null;
+                if ($request->file('description_ko')) {
+                    $fileNameDescriptionKo = "hotel_ko_" . time() . "." . $request->file('description_ko')->getClientOriginalExtension();
+                    $request->file('description_ko')->move(public_path("/img/hotels"), $fileNameDescription);
+                }
+
+                $fileNameDescriptionVi = null;
+                if ($request->file('description_vi')) {
+                    $fileNameDescriptionKo = "hotel_vi_" . time() . "." . $request->file('description_vi')->getClientOriginalExtension();
+                    $request->file('description_vi')->move(public_path("/img/hotels"), $fileNameDescription);
+                }
+
 
                 $hotel = new Hotel;
                 $hotel->name = $request->name;
@@ -91,6 +109,9 @@ class HotelController extends Controller
                 $hotel->y_coordinate = $request->y_coordinate;
                 $hotel->image = $fileName;
                 $hotel->description = $fileNameDescription;
+                $hotel->description_zh = $fileNameDescriptionCn;
+                $hotel->description_ko = $fileNameDescriptionKo;
+                $hotel->description_vi = $fileNameDescriptionVi;
 
                 if ($hotel->save()) {
                     $data['success'] = true;
@@ -111,8 +132,8 @@ class HotelController extends Controller
         if ($hotel) {
             $data['success'] = true;
             $data['hotel'] = Hotel::leftjoin('rooms', 'hotels.id', '=', 'rooms.hotel_id')
-                ->select('hotels.id', 'hotels.name', 'hotels.star', 'hotels.image', 'hotels.city', 'hotels.address', 'hotels.x_coordinate', 'hotels.y_coordinate', 'hotels.description', DB::raw('MIN(rooms.price) as min_price'))
-                ->groupBy('hotels.id', 'hotels.name', 'hotels.star', 'hotels.image', 'hotels.city', 'hotels.address', 'hotels.x_coordinate', 'hotels.y_coordinate', 'hotels.description')
+                ->select('hotels.id', 'hotels.name', 'hotels.star', 'hotels.image', 'hotels.city', 'hotels.address', 'hotels.x_coordinate', 'hotels.y_coordinate', 'hotels.description', 'hotels.description_zh', 'hotels.description_ko', 'hotels.description_vi', DB::raw('MIN(rooms.price) as min_price'))
+                ->groupBy('hotels.id', 'hotels.name', 'hotels.star', 'hotels.image', 'hotels.city', 'hotels.address', 'hotels.x_coordinate', 'hotels.y_coordinate', 'hotels.description', 'hotels.description_zh', 'hotels.description_ko', 'hotels.description_vi')
                 ->where('hotels.id', $hotel->id)
                 ->first();
             $data['hotel']['rooms'] = $hotel->rooms->take(6);
@@ -148,13 +169,37 @@ class HotelController extends Controller
 
                 if ($request->hasFile('description')) {
                     $fileNameDescription = null;
-                    $data['hotel_debug'] = "có des ";
                     if ($request->file('description')) {
                         $fileNameDescription = "hotel_" . time() . "." . $request->file('description')->getClientOriginalExtension();
                         $request->file('description')->move(public_path("/img/hotels"), $fileNameDescription);
                         $hotel->description = $fileNameDescription;
-                        $data['hotel_debug'] .= $fileNameDescription;
-                        $data['hotel_description'] = $hotel->description;
+                    }
+                }
+
+                if ($request->hasFile('description_zh')) {
+                    $fileNameDescription = null;
+                    if ($request->file('description_zh')) {
+                        $fileNameDescription = "hotel_zh_" . time() . "." . $request->file('description_zh')->getClientOriginalExtension();
+                        $request->file('description_zh')->move(public_path("/img/hotels"), $fileNameDescription);
+                        $hotel->description_zh = $fileNameDescription;
+                    }
+                }
+
+                if ($request->hasFile('description_ko')) {
+                    $fileNameDescription = null;
+                    if ($request->file('description_ko')) {
+                        $fileNameDescription = "hotel_ko_" . time() . "." . $request->file('description_ko')->getClientOriginalExtension();
+                        $request->file('description_ko')->move(public_path("/img/hotels"), $fileNameDescription);
+                        $hotel->description_ko = $fileNameDescription;
+                    }
+                }
+
+                if ($request->hasFile('description_vi')) {
+                    $fileNameDescription = null;
+                    if ($request->file('description_vi')) {
+                        $fileNameDescription = "hotel_vi_" . time() . "." . $request->file('description_vi')->getClientOriginalExtension();
+                        $request->file('description_vi')->move(public_path("/img/hotels"), $fileNameDescription);
+                        $hotel->description_vi = $fileNameDescription;
                     }
                 }
 

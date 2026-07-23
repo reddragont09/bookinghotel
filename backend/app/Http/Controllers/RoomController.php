@@ -67,6 +67,11 @@ class RoomController extends Controller
                         $room->price = $request->price;
                         $room->guest = $request->guest;
                         $room->hotel_id = $request->hotel_id;
+                        $room->description_zh = $request->description_zh??'';
+                        $room->description_ko = $request->description_ko??'';
+                        $room->description_vi = $request->description_vi??'';
+                        $room->price_zh = $request->price_zh??$request->price;
+                        $room->price_ko = $request->price_ko??$request->price;
                         $room->image = implode(",", $names);
 
                         if ($room->save()) {
@@ -74,7 +79,22 @@ class RoomController extends Controller
                             $data['room'] = $room;
                             $features = json_decode($request->features);
                             foreach ($features as $feature) {
-                                (new FeatureController)->store(["name" => $feature, "room_id" => $room->id]);
+                                (new FeatureController)->store(["name" => $feature, 'language' => 'en',"room_id" => $room->id]);
+                            }
+
+                            $cnFeatures = json_decode($request->features_zh);
+                            foreach ($cnFeatures as $feature) {
+                                (new FeatureController)->store(["name" => $feature, 'language' => 'zh', "room_id" => $room->id]);
+                            }
+
+                            $koFeatures = json_decode($request->features_ko);
+                            foreach ($koFeatures as $feature) {
+                                (new FeatureController)->store(["name" => $feature, 'language' => 'ko', "room_id" => $room->id]);
+                            }
+
+                            $viFeatures = json_decode($request->features_vi);
+                            foreach ($viFeatures as $feature) {
+                                (new FeatureController)->store(["name" => $feature, 'language' => 'vi', "room_id" => $room->id]);
                             }
                         }
                     }
@@ -97,7 +117,7 @@ class RoomController extends Controller
         if ($room) {
             $data['success'] = true;
             $data['room'] = $room;
-            $data['room']['features'] = Feature::select('name')->where('room_id', $room->id)->get();
+            $data['room']['features'] = Feature::select('name', 'language')->where('room_id', $room->id)->get();
             $data['suggested_rooms'] = count(Room::where('rooms.id', '!=', $room->id)->get()) >= 3 ? Room::where('rooms.id', '!=', $room->id)->inRandomOrder()->limit(3)->get() : [];
         }
 
@@ -144,22 +164,42 @@ class RoomController extends Controller
                 }
                 $room->name = $request->name;
                 $room->description = $request->description;
+                $room->description_zh = $request->description_zh??'';
+                $room->description_ko = $request->description_ko??'';
+                $room->description_vi = $request->description_vi??'';
                 $room->price = $request->price;
+                $room->price_zh = $request->price_zh??$request->price;
+                $room->price_ko = $request->price_ko??$request->price;
                 $room->guest = $request->guest;
                 $room->hotel_id = $request->hotel_id;
 
                 if ($room->save()) {
                     $data['success'] = true;
                     $data['room'] = $room;
-                    $data['room']['features'] = Feature::select('name')->where('room_id', $room->id)->get();
-
-                    $features = json_decode($request->features);
 
                     DB::table('features')->where('room_id',  $room->id)->delete();
 
+                    $features = json_decode($request->features);
                     foreach ($features as $feature) {
-                        (new FeatureController)->store(["name" => $feature, "room_id" => $room->id]);
+                        (new FeatureController)->store(["name" => $feature, 'language' => 'en', "room_id" => $room->id]);
                     }
+
+                    $cnFeatures = json_decode($request->features_zh);
+                    foreach ($cnFeatures as $feature) {
+                        (new FeatureController)->store(["name" => $feature, 'language' => 'zh', "room_id" => $room->id]);
+                    }
+
+                    $koFeatures = json_decode($request->features_ko);
+                    foreach ($koFeatures as $feature) {
+                        (new FeatureController)->store(["name" => $feature, 'language' => 'ko', "room_id" => $room->id]);
+                    }
+
+                    $viFeatures = json_decode($request->features_vi);
+                    foreach ($viFeatures as $feature) {
+                        (new FeatureController)->store(["name" => $feature, 'language' => 'vi', "room_id" => $room->id]);
+                    }
+
+                    $data['room']['features'] = Feature::select('name', 'language')->where('room_id', $room->id)->get();
                 }
             } else
                 $data['success'] = false;
