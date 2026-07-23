@@ -136,6 +136,11 @@ class BookingController extends Controller
                 ], 404);
             }
 
+            $price = $request->amount;
+            if ($room) {
+                $price = $room->price;
+            }
+
             $checkIn = Carbon::parse($request->check_in);
             $checkOut = Carbon::parse($request->check_out);
 
@@ -145,7 +150,7 @@ class BookingController extends Controller
                 $days = 1;
             }
 
-            $amount = $days * $room->price;
+            $amount = $days * $price;
 
             DB::beginTransaction();
 
