@@ -129,7 +129,7 @@ class BookingController extends Controller
 
             $room = Room::find($request->room_id);
 
-            if (!$room) {
+            if (!$room && $request->package_id<1) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Room not found'
