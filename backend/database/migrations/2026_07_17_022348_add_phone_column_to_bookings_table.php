@@ -14,8 +14,8 @@ class AddPhoneColumnToBookingsTable extends Migration
     public function up()
     {
         Schema::table('bookings', function (Blueprint $table) {
-            $table->string('phone');
-            $table->string('email');
+            //$table->string('phone');
+            //$table->string('email');
         });
     }
 
