@@ -41,9 +41,13 @@ function RoomHero({ room }) {
         setRoomImage(firstImage);
 
         // Feature theo ngôn ngữ
-        const listFeatures = (room.features || []).filter(
+        let listFeatures = (room.features || []).filter(
             (f) => f.language === i18n.language
         );
+
+        if (listFeatures.length === 0) {
+            listFeatures = room.features;
+        }
 
         setFeatures(listFeatures);
 

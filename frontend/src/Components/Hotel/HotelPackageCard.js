@@ -56,7 +56,24 @@ function HotelPackageCard({ pkgs }) {
                             <Link
                                 to="/book"
                                 onClick={() => handleOnclick(pkg.id, pkg.priceNum, pkg.dayNum, pkg.name)}
-                                className="bg-orange-600 mt-8 py-3 px-6 text-lg md:text-3xl text-gray-200 block text-center hover:bg-orange-900 rounded-sm"
+                                className="mt-8 
+        py-3 px-8
+        text-lg md:text-xl
+        text-white
+        font-semibold
+        bg-gradient-to-r from-orange-500 to-orange-600
+        hover:from-orange-600 hover:to-orange-700
+        rounded-full
+        shadow-lg
+        hover:shadow-xl
+        transform
+        hover:-translate-y-1
+        transition-all
+        duration-300
+        ease-in-out
+        block
+        text-center
+    "
                             >
                                 {pkg.cta}
                             </Link>
