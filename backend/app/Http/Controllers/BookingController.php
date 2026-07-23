@@ -136,7 +136,7 @@ class BookingController extends Controller
                 ], 404);
             }
 
-            $amount = $request->amount = 1000;
+            $amount = $request->amount;
             if ($room) {
                 $checkIn = Carbon::parse($request->check_in);
                 $checkOut = Carbon::parse($request->check_out);
