@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import useSecureLs from "../Global/useSecureLs";
+import { useTranslation } from "react-i18next";
 
 function BookingDetails({ booking, setBooking, submitted }) {
+    const { t } = useTranslation();
     const [price, setPrice] = useState(0);
     const [room_id] = useSecureLs("room_id");
     const [room_name] = useSecureLs("room_name");
@@ -43,9 +45,6 @@ function BookingDetails({ booking, setBooking, submitted }) {
     }, [booking.check_in, booking.check_out, price]); // eslint-disable-line
     return (
         <>
-            <h1 className="sr-only">Book Room</h1>
-            <h2 className="pl-5 text-2xl">Step 1: Check Details</h2>
-
             <div className="p-5 ">
                 <div className="flex flex-col md:flex-row md:justify-between w-full bg-gray-200 rounded-sm  overflow-hidden shadow-xl">
                     <div className="md:w-1/4">
@@ -72,7 +71,7 @@ function BookingDetails({ booking, setBooking, submitted }) {
                                     htmlFor="guest-name"
                                     className="mr-5 text-gray-900 md:w-1/4"
                                 >
-                                    Guest Name
+                                    {t("guest_name")}
                                 </label>
                                 <input
                                     id="guest-name"
@@ -92,7 +91,7 @@ function BookingDetails({ booking, setBooking, submitted }) {
                                     htmlFor="email"
                                     className="mr-5 text-gray-900 md:w-1/4"
                                 >
-                                    Email
+                                    {t("email")}
                                 </label>
                                 <input
                                     id="email"
@@ -112,7 +111,7 @@ function BookingDetails({ booking, setBooking, submitted }) {
                                     htmlFor="phone"
                                     className="mr-5 text-gray-900 md:w-1/4"
                                 >
-                                    Phone Number
+                                    {t("phone_number")}
                                 </label>
                                 <input
                                     id="phone"
@@ -132,7 +131,7 @@ function BookingDetails({ booking, setBooking, submitted }) {
                                     htmlFor="check-in"
                                     className="mr-5 text-gray-900 md:w-1/4"
                                 >
-                                    Check-in
+                                    {t("checkin")}
                                 </label>
                                 <input
                                     id="check-in"
@@ -160,7 +159,7 @@ function BookingDetails({ booking, setBooking, submitted }) {
                                     htmlFor="check-out"
                                     className="mr-5 text-gray-900 md:w-1/4"
                                 >
-                                    Check-out
+                                    {t("checkout")}
                                 </label>
                                 <input
                                     id="check-out"

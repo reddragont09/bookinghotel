@@ -35,10 +35,11 @@ function HotelDescription({ hotel }) {
         if (hotel.description_ko) {
             pdfName = hotel.description_ko;
         }
+    } else if (i18n.language == 'vi') {
+        if (hotel.description_vi) {
+            pdfName = hotel.description_vi;
+        }
     }
-
-    console.log(i18n.language);
-    console.log(pdfName);
 
     const pdfUrl = `${process.env.REACT_APP_BASE_URL}/api/hotel-pdf/${pdfName}`;
 

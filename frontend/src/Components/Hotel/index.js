@@ -99,7 +99,7 @@ function Hotel(props) {
                     >
                         {t("stay_packages")}
                     </button>
-                    {/* <button
+                    <button
                         className={`px-6 py-3 rounded-lg font-medium transition-all duration-200
                 ${activeTab === "tours"
                                 ? "bg-blue-500 text-white shadow-md"
@@ -108,7 +108,7 @@ function Hotel(props) {
                         onClick={() => setActiveTab("tours")}
                     >
                         {t("tours")}
-                    </button> */}
+                    </button>
                     <button
                         className={`px-6 py-3 rounded-lg font-medium transition-all duration-200
                 ${activeTab === "map"
@@ -175,7 +175,7 @@ function Hotel(props) {
 
                     {state.hotels.hotel && (
                         <TitleSection
-                            title={`Where to find ${state.hotels.hotel.name} Hotel`}
+                            title={`Where to find ${state.hotels.hotel.name}`}
                             star={state.hotels.hotel.star}
                         />
                     )}

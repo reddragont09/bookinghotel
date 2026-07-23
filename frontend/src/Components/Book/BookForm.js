@@ -12,7 +12,10 @@ import ErrorMessage from "../Global/ErrorMessage";
 import SuccessMessage from "../Global/SuccessMessage";
 import useSecureLs from "../Global/useSecureLs";
 
+import { useTranslation } from "react-i18next";
+
 function BookForm() {
+    const { t } = useTranslation();
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
     const [user_id] = useSecureLs("user_id");
@@ -87,7 +90,7 @@ function BookForm() {
                     type="button" onClick={onSubmitHandler}
                     className="bg-orange-700 mt-5 py-2 px-6 text-3xl text-gray-200 block w-10/12 mx-auto hover:bg-orange-900"
                 >
-                    BOOK
+                    {t("book")}
                 </button>
             </div>
         </div>

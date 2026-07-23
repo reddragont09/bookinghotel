@@ -26,8 +26,6 @@ function Header({ hotelId }) {
     const [languageDropdown, setLanguageDropdown] = useState(false);
 
     const changeLanguage = (lang) => {
-        console.log(i18n);
-        console.log(typeof i18n.changeLanguage);
         setLanguage(lang);
         i18n.changeLanguage(lang);
         localStorage.setItem("language", lang);
@@ -271,7 +269,7 @@ function Header({ hotelId }) {
                                     <span className="ml-3">English</span>
                                 </button>
 
-                                {/* <button
+                                <button
                                     onClick={() => changeLanguage("vi")}
                                     className="flex items-center w-full px-4 py-3 hover:bg-gray-100 whitespace-nowrap"
                                 >
@@ -281,7 +279,7 @@ function Header({ hotelId }) {
                                         style={{ width: "22px", height: "22px" }}
                                     />
                                     <span className="ml-3">Tiếng Việt</span>
-                                </button> */}
+                                </button>
 
                                 <button
                                     onClick={() => changeLanguage("zh")}
